@@ -1,0 +1,13 @@
+/dist
+/node_modules
+tsconfig.json
+*.svg
+*.png
+*.jpg
+*.jpeg
+*.scss
+*.gif
+*.webp
+*.ttf
+index.html
+*.md

@@ -1,6 +1,15 @@
 # Vue 3 + TypeScript + Vite
 
-git commit 提交规范
+# package.json
+
+去掉模块化
+
+```js
+ "type": "module",
+```
+
+# git commit 提交规范
+
 feat：新功能（feature）
 fix/to：修复 bug，可以是 QA 发现的 BUG，也可以是研发自己发现的 BUG：【这个不太懂】
 fix：产生 diff 并自动修复此问题。适合于一次提交直接修复问题

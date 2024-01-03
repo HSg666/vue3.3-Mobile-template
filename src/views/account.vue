@@ -1,14 +1,14 @@
 <template>
-  <div @click="toLogin">toLogin</div>
-  <router-view></router-view>
+	<div @click="toLogin">toLogin</div>
+	<router-view></router-view>
 </template>
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
+const router = useRouter()
 function toLogin() {
-  router.push({
-    name: "login",
-  });
+	router.push({
+		name: 'login',
+	})
 }
 </script>

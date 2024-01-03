@@ -1,14 +1,14 @@
 <template>
-  <div @click="toAccount">toAccount</div>
-  <router-view></router-view>
+	<div @click="toAccount">toAccount</div>
+	<router-view></router-view>
 </template>
 <script lang="ts" setup>
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
+const router = useRouter()
 function toAccount() {
-  router.push({
-    name: "account",
-  });
+	router.push({
+		name: 'account',
+	})
 }
 </script>
