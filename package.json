@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "ant-design-vue": "^4.0.8",
     "vue": "^3.3.11"
   },
   "devDependencies": {
@@ -17,6 +18,8 @@
     "sass": "^1.69.7",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
-    "vue-tsc": "^1.8.25"
+    "vite-plugin-windicss": "^1.9.3",
+    "vue-tsc": "^1.8.25",
+    "windicss": "^3.5.6"
   }
 }

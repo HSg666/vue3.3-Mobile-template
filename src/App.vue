@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
+import { Button } from "ant-design-vue";
 </script>
 
 <template>
   <div>
+    <Button type="primary">点击</Button>
+    <div class="text-orange-500">Test windiCSS style</div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
