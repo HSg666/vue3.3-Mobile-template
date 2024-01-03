@@ -1,36 +1,43 @@
 {
-  "name": "learn-vite",
-  "private": true,
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "ant-design-vue": "^4.0.8",
-    "core-js": "^3.35.0",
-    "pinia": "^2.1.7",
-    "vue": "^3.3.11",
-    "vue-router": "^4.2.5"
-  },
-  "devDependencies": {
-    "@types/node": "^20.10.6",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
-    "@vitejs/plugin-legacy": "^5.2.0",
-    "@vitejs/plugin-vue": "^4.5.2",
-    "autoprefixer": "^10.4.16",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.1.2",
-    "eslint-plugin-vue": "^9.19.2",
-    "prettier": "^3.1.1",
-    "sass": "^1.69.7",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.8",
-    "vite-plugin-windicss": "^1.9.3",
-    "vue-tsc": "^1.8.25",
-    "windicss": "^3.5.6"
-  }
+	"name": "learn-vite",
+	"private": true,
+	"version": "0.0.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "vue-tsc && vite build",
+		"preview": "vite preview",
+		"prepare": "husky install"
+	},
+	"dependencies": {
+		"ant-design-vue": "^4.0.8",
+		"core-js": "^3.35.0",
+		"pinia": "^2.1.7",
+		"vue": "^3.3.11",
+		"vue-router": "^4.2.5"
+	},
+	"devDependencies": {
+		"@types/node": "^20.10.6",
+		"@typescript-eslint/eslint-plugin": "^6.17.0",
+		"@typescript-eslint/parser": "^6.17.0",
+		"@vitejs/plugin-legacy": "^5.2.0",
+		"@vitejs/plugin-vue": "^4.5.2",
+		"autoprefixer": "^10.4.16",
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "^5.1.2",
+		"eslint-plugin-vue": "^9.19.2",
+		"husky": "^8.0.3",
+		"lint-staged": "^15.2.0",
+		"prettier": "^3.1.1",
+		"sass": "^1.69.7",
+		"typescript": "^5.2.2",
+		"vite": "^5.0.8",
+		"vite-plugin-windicss": "^1.9.3",
+		"vue-tsc": "^1.8.25",
+		"windicss": "^3.5.6"
+	},
+	"lint-staged": {
+		"*.js": "eslint --cache --fix",
+		"*.vue": "eslint --cache --fix"
+	}
 }
