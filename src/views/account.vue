@@ -1,9 +1,8 @@
-<template>
-	<div @click="toLogin">toLogin</div>
-	<router-view></router-view>
-</template>
 <script lang="ts" setup>
+import { useStore } from '@/store'
 import { useRouter } from 'vue-router'
+
+const userStore = useStore()
 
 const router = useRouter()
 function toLogin() {
@@ -12,3 +11,8 @@ function toLogin() {
 	})
 }
 </script>
+<template>
+	<div @click="toLogin">toLogin</div>
+	<div>{{ userStore.name }}</div>
+	<router-view></router-view>
+</template>

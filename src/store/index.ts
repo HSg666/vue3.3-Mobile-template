@@ -1,22 +1,7 @@
-import { defineStore, acceptHMRUpdate } from "pinia";
+import { createPinia } from 'pinia'
 
-export const useStore = defineStore({
-  id: "index",
-  state: () => ({
-    name: "old name",
-  }),
-  getters: {
-    myName: (state) => {
-      return `getters ${state.name}`;
-    },
-  },
-  actions: {
-    changeName(name: string) {
-      this.name = name;
-    },
-  },
-});
+// 实例化pinia
+export const pinia = createPinia()
 
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useStore, import.meta.hot));
-}
+// 统一导出modules下的所有store
+export * from './modules'
