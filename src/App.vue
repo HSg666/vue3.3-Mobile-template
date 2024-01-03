@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import HelloWorld from "./components/HelloWorld.vue";
 import { Button } from "ant-design-vue";
+import { useStore } from "@/store";
+const userStore = useStore();
+
+const handleClick = () => {
+  userStore.changeName("林浩生");
+};
 </script>
 
 <template>
   <div>
-    <Button type="primary">点击</Button>
+    <Button type="primary" @click="handleClick">点击</Button>
+    <div>{{ userStore.name }}</div>
     <div class="text-orange-500">Test windiCSS style</div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
