@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "ant-design-vue": "^4.0.8",
+    "core-js": "^3.35.0",
     "pinia": "^2.1.7",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@types/node": "^20.10.6",
+    "@vitejs/plugin-legacy": "^5.2.0",
     "@vitejs/plugin-vue": "^4.5.2",
     "autoprefixer": "^10.4.16",
     "sass": "^1.69.7",
