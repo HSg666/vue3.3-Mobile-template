@@ -2,7 +2,7 @@
 import API from './requestList'
 import AxiosRequestError from './error'
 import { handleError } from './handleError'
-import { getProcessEnv } from '@/global/env'
+import { getProcessEnv } from '../global/env'
 
 const $api = new API({
 	// 这个是请求的后台的服务的地址

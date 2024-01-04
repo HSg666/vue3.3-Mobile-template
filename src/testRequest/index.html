@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.bootcdn.net/ajax/libs/fetch/3.6.19/fetch.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function init(){
+            fetch('http://192.168.1.193:8099/api/info',
+            // { headers: { 'content-type': 'application/json' } }
+            )
+            .then( (res)=> { console.dir(res,'res'); }  )
+            .catch( (err)=> { console.dir(err,'err'); } )
+        }
+        init()
+    </script>
+</body>
+</html>
