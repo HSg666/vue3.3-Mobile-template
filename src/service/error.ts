@@ -1,4 +1,4 @@
-// 专门处理axios请求的错误信息
+// 作用：专门处理axios请求的错误信息
 import { AxiosError } from 'axios'
 
 // 服务器报错返回 Error 的时候的数据结构，可以和后端商量定义，但是所有接口的格式要统一
