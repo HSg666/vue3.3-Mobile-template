@@ -61,9 +61,10 @@ core-js 和 @vitejs/plugin-legacy
 参考文章：https://blog.csdn.net/qq_17335549/article/details/128480583
 
 # 搭建二期
-## 1、新增axios，并封装
+## 1、新增axios并封装,还新增了自定义请求错误处理函数，请求类
 ## 2、封装api列表  apiList   
 封装的axios配合api接口使用模板
+
 (1)、先把接口添加进接口列表
 ```js
 export const APIs = {
@@ -98,8 +99,31 @@ $api.get(APIs.GET_SHOPLIST)
 
 ```
 (3)、用console.dir可以捕获到详细的错误信息，还能看到我们封装的错误处理函数
+
 data: undefined,  // 接口返回值为undefined
+
 isServerError: false, // 是否为服务器出错
+
 isUnAuthorized: false, // 是否已通过鉴权，也就是常见的登录状态
+## 3、新增环境变量  优化请求地址
+测试和正式环境地址在 global/env.ts 中配置
+```js
+// 正式环境
+export const PROD_ENV = {
+	SERVER_URL: 'http://127.0.0.1:8090/api', // 服务器地址
+	IS_DEV: 'false', // 是否为测试环境
+}
+
+// 测试环境
+export const DEV_ENV = {
+	SERVER_URL: 'http://127.0.0.1:8099/api',
+	IS_DEV: 'true',
+}
+
+// 假设测试环境的域名是 http://127.0.0.1:8099/api 或 https://xxx-test.com,填入即可
+// 这段代码的意思是：如果是开发环境 或者 当前URL中端口host跟你传入的测试环境一样,代表现在是开发环境，所以isDEV为true
+const isDEV = process.env.NODE_ENV === 'development' || ['http://127.0.0.1:8099'].includes(location.host)
+
+```
 
 参考文章：https://blog.csdn.net/qq_17335549/article/details/135022054

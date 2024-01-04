@@ -5,15 +5,15 @@ import AxiosRequestError from '@/service/error'
 import $api from '@/service/webRequest'
 import { APIs } from '@/service/apiList'
 
-const getShop = async () => {
-	try {
-		const res = await $api.getShopList()
-		console.dir(res, 'res')
-	} catch (error: AxiosRequestError) {
-		console.dir(error, 'error')
-	}
-}
-getShop()
+// const getShop = async () => {
+// 	try {
+// 		const res = await $api.get(APIs.GET_SHOPLIST)
+// 		console.dir(res, 'res')
+// 	} catch (error: AxiosRequestError) {
+// 		console.dir(error, 'error')
+// 	}
+// }
+// getShop()
 
 $api.get(APIs.GET_SHOPLIST)
 	.then(() => {})
