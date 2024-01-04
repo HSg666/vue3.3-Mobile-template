@@ -58,8 +58,48 @@ core-js 和 @vitejs/plugin-legacy
 - merge：代码合并。
 - sync：同步主线或分支的 Bug。
 
-搭建此项目参考的文章地址  https://blog.csdn.net/qq_17335549/article/details/128480583
+参考文章：https://blog.csdn.net/qq_17335549/article/details/128480583
 
 # 搭建二期
 ## 1、新增axios，并封装
+## 2、封装api列表  apiList   
+封装的axios配合api接口使用模板
+(1)、先把接口添加进接口列表
+```js
+export const APIs = {
+	GET_SHOPLIST: '/h5/getShopList', // 获取商品列表
+}
+```
+(2)、页面使用
+```js
+// account.vue
+import AxiosRequestError from '@/service/error' // 引入自定义错误处理函数
+import $api from '@/service/webRequest' // 封装好的axios请求函数
+import { APIs } from '@/service/apiList' // 接口列表
 
+// 二选一即可
+
+// async await 写法
+const getShop = async () => {
+	try {
+		const res = await $api.getShopList()
+		console.dir(res, 'res')
+	} catch (error: AxiosRequestError) {
+		console.dir(error, 'error')
+	}
+}
+
+// 原生Primise  .then  .catch
+$api.get(APIs.GET_SHOPLIST)
+	.then(() => {})
+	.catch((err: AxiosRequestError) => {
+		console.dir(err, 'err')
+})
+
+```
+(3)、用console.dir可以捕获到详细的错误信息，还能看到我们封装的错误处理函数
+data: undefined,  // 接口返回值为undefined
+isServerError: false, // 是否为服务器出错
+isUnAuthorized: false, // 是否已通过鉴权，也就是常见的登录状态
+
+参考文章：https://blog.csdn.net/qq_17335549/article/details/135022054

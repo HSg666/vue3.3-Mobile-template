@@ -4,7 +4,7 @@ import AxiosRequestError from './error'
 import { handleError } from './handleError'
 
 const $api = new API({
-	url: 'http://127.0.0.1/api/h5/getShopList', // 这个是请求的后台的服务的地址
+	url: 'http://127.0.0.1:8090/api/', // 这个是请求的后台的服务的地址
 })
 
 // 请求的拦截器

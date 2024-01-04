@@ -1,6 +1,7 @@
 // 作用：封装api请求类
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import createRequestInstance from './request'
+import { APIs } from './apiList'
 
 class API {
 	request!: ReturnType<typeof createRequestInstance>
