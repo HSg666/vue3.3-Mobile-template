@@ -9,13 +9,14 @@ pnpm i        // 装依赖
 pnpm dev     // 启动
 ```
 
-# 搭建一期
 这个项目有什么东西呢？
+# 搭建一期
+
 ## 1、务必装上安装pnpm 
 没装的看这篇文章  https://blog.csdn.net/Steven_Son/article/details/135151622 
 ## 2、新增 .nvmrc
 每次切换项目都手动切换 node 版本
-## 3、CSS预处理用的是SCSS
+## 3、CSS预处理器用的是SCSS
 ## 4、公共样式表
 common.scss  需要初始化全局样式可以在此文件编辑
 ## 5、autoprefiexer 自动增加css浏览器兼容前缀
@@ -60,3 +61,5 @@ core-js 和 @vitejs/plugin-legacy
 搭建此项目参考的文章地址  https://blog.csdn.net/qq_17335549/article/details/128480583
 
 # 搭建二期
+## 1、新增axios，并封装
+
