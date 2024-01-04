@@ -1,10 +1,10 @@
-<script lang="ts" setup>
+<script lang="ts" setup name="login">
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 function toAccount() {
 	router.push({
-		name: 'account',
+		name: 'login',
 	})
 }
 </script>

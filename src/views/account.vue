@@ -1,37 +1,27 @@
-<script lang="ts" setup>
+<script lang="ts" setup name="account">
 import { useStore } from '@/store'
-import { useRouter } from 'vue-router'
 import AxiosRequestError from '@/service/error'
 import $api from '@/service/webRequest'
 import { APIs } from '@/service/apiList'
+import { debounce } from 'lodash-es'
 
-// const getShop = async () => {
-// 	try {
-// 		const res = await $api.get(APIs.GET_SHOPLIST)
-// 		console.dir(res, 'res')
-// 	} catch (error: AxiosRequestError) {
-// 		console.dir(error, 'error')
-// 	}
-// }
-// getShop()
+console.log(debounce, 'lodash')
 
-$api.get(APIs.GET_SHOPLIST)
-	.then(() => {})
-	.catch((err: AxiosRequestError) => {
-		console.dir(err, 'err')
-	})
+// $api.get(APIs.GET_SHOPLIST)
+// 	.then(() => {})
+// 	.catch((err: AxiosRequestError) => {
+// 		console.dir(err, 'err')
+// 	})
 
 const userStore = useStore()
-
-const router = useRouter()
+const debounceLogin = debounce(toLogin, 500)
 function toLogin() {
-	router.push({
-		name: 'login',
-	})
+	console.log(111)
 }
 </script>
 <template>
-	<div @click="toLogin">toLogin</div>
+	<div @click="debounceLogin">toLogin</div>
+
 	<div>{{ userStore.name }}</div>
 	<router-view></router-view>
 </template>

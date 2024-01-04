@@ -125,5 +125,16 @@ export const DEV_ENV = {
 const isDEV = process.env.NODE_ENV === 'development' || ['http://127.0.0.1:8099'].includes(location.host)
 
 ```
+## 4、新增lodash 第三方库  
+防抖和节流的使用方法,节流用到时再去查
+```js
+import { debounce } from 'lodash-es'
+
+// 它返回一个带防抖的新函数
+const debounceLogin = debounce(toLogin, 500)
+function toLogin() {
+	console.log(111)
+}
+```
 
 参考文章：https://blog.csdn.net/qq_17335549/article/details/135022054
