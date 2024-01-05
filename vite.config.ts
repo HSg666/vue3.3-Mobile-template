@@ -40,7 +40,26 @@ export default defineConfig({
 	//新增
 	resolve: {
 		alias: {
-			'@': path.resolve(__dirname, './src'), //把 src 的别名设置为 @
+			'@': path.resolve(__dirname, './src'), //把 src 的别名设置为 @,
 		},
+	},
+	build: {
+		outDir: path.resolve(__dirname, 'dist'), // 打包输出文件夹
+		sourcemap: false,
+		assetsInlineLimit: 4096, //小于此阈值 kb 的导入或引用资源将内联为 base64 编码
+		emptyOutDir: true, // 每次构建时清除dist目录
+		rollupOptions: {
+			output: {
+				manualChunks: {
+					pinia: ['pinia'],
+				},
+				entryFileNames: 'js/[name]-[hash].js', // 入口文件输出的文件夹名称
+				chunkFileNames: 'js/[name]-[hash].js', //chunk包输出的文件夹名称
+				assetFileNames: '[ext]/[name]-[hash].[ext]', //静态文件输出的文件夹名称
+			},
+		},
+		chunkSizeWarningLimit: 1300,
+		minify: 'terser',
+		cssCodeSplit: true,
 	},
 })

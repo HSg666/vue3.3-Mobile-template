@@ -8,10 +8,11 @@ import { debounce } from 'lodash-es'
 console.log(debounce, 'lodash')
 
 // $api.get(APIs.GET_SHOPLIST)
-// 	.then(() => {})
-// 	.catch((err: AxiosRequestError) => {
-// 		console.dir(err, 'err')
-// 	})
+$api.get(APIs.GET_SHOPLIST_PROD)
+	.then(() => {})
+	.catch((err: AxiosRequestError) => {
+		console.dir(err, 'err')
+	})
 
 const userStore = useStore()
 const debounceLogin = debounce(toLogin, 500)
@@ -21,7 +22,8 @@ function toLogin() {
 </script>
 <template>
 	<div @click="debounceLogin">toLogin</div>
-
+	<h2 style="color: pink">过来啦</h2>
 	<div>{{ userStore.name }}</div>
-	<router-view></router-view>
+	<router-view />
 </template>
+<style lang="scss" scoped></style>

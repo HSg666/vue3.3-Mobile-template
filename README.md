@@ -2,12 +2,14 @@
 # 环境： Node:16.20.1    pnpm:8.14.0
 # 代码管理工具：sourceTree
 
-# 启动命令
+# 命令
 ```js
-cd learn-vite  // 切换
-pnpm i        // 装依赖
-pnpm dev     // 启动
+cd learn-vite    // 切换
+pnpm i           // 装依赖
+pnpm start       // 启动
+pnpm run build   // 打包
 ```
+准备打包上线时请看搭建二期的 <a href="#requestURL">新增环境变量  优化请求地址</a>，检查完配置后再执行pnpm run build 打包
 
 这个项目有什么东西呢？
 # 搭建一期
@@ -105,30 +107,48 @@ data: undefined,  // 接口返回值为undefined
 isServerError: false, // 是否为服务器出错
 
 isUnAuthorized: false, // 是否已通过鉴权，也就是常见的登录状态
-## 3、新增环境变量  优化请求地址
+## <a id="requestURL">3、新增环境变量  优化请求地址</a>
 测试和正式环境地址在 global/env.ts 中配置
 ```js
 // 正式环境
 export const PROD_ENV = {
-	SERVER_URL: 'http://127.0.0.1:8090/api', // 服务器地址
+	SERVER_URL: 'http://192.168.1.193:8090/', // 服务器地址
 	IS_DEV: 'false', // 是否为测试环境
 }
 
 // 测试环境
 export const DEV_ENV = {
-	SERVER_URL: 'http://127.0.0.1:8099/api',
+	SERVER_URL: 'http://192.168.1.193:8099/',
 	IS_DEV: 'true',
 }
 
-// 假设测试环境的域名是 http://127.0.0.1:8099/api 或 https://xxx-test.com,填入即可
-// 这段代码的意思是：如果是开发环境 或者 当前URL中端口host跟你传入的测试环境一样,代表现在是开发环境，所以isDEV为true
-const isDEV = process.env.NODE_ENV === 'development' || ['http://127.0.0.1:8099'].includes(location.host)
+/* 	
+	isDEV：true为生产环境，false为开发环境
+	假设开发环境的域名是 http://127.0.0.1:8099/api 或 https://xxx-test.com
+	提示：
+	本地如果要将请求地址切换为生产服务器，则将isDEV设置为false，注释掉判断开发环境的代码。代码如下
+	const isDEV = false
+	// if (typeof window !== 'undefined') {
+	// isDEV = process.env.NODE_ENV === 'development' || ['http://192.168.1.193:8099'].includes(window.location.host)
+	// }
 
+	准备打包上线，将代码改回来。（开发环境也是这个代码）代码如下   
+	let isDEV = true // 默认为开发环境
+	if (typeof window !== 'undefined') {
+		isDEV = process.env.NODE_ENV === 'development' || ['http://192.168.1.193:8099'].includes(window.location.host)
+	}
+
+*/
+
+let isDEV = true // 默认为开发环境，但会根据当前环境动态更换开发或生产
+if (typeof window !== 'undefined') {
+	isDEV = process.env.NODE_ENV === 'development' || ['http://192.168.1.193:8099'].includes(window.location.host)
+}
 ```
 ## 4、新增lodash 第三方库  
 防抖和节流的使用方法,节流用到时再去查
 ```js
-import { debounce } from 'lodash-es'
+import { debounce,throttle } from 'lodash-es'
 
 // 它返回一个带防抖的新函数
 const debounceLogin = debounce(toLogin, 500)

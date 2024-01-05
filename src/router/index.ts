@@ -1,6 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
-export const routes = [
+export const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/',
 		redirect: '/login',
@@ -8,7 +8,7 @@ export const routes = [
 	{
 		name: 'login',
 		path: '/login',
-		component: () => import('@/views/login/index.vue'),
+		component: () => import('@/views/login.vue'),
 	},
 	{
 		name: 'account',

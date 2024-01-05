@@ -3,8 +3,8 @@
 	"private": true,
 	"version": "0.0.0",
 	"scripts": {
-		"dev": "vite",
-		"build": "vue-tsc && vite build",
+		"start": "vite",
+		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "husky install"
 	},
@@ -42,8 +42,5 @@
 	"lint-staged": {
 		"*.js": "eslint --cache --fix",
 		"*.vue": "eslint --cache --fix"
-	},
-	"browserslist": [
-		"cover: 99.5%"
-	]
+	}
 }
