@@ -21,7 +21,7 @@ const changStore = () => {
 		321321321321321
 		<div class="btn" @click="toAccount">
 			toAccount测试的撒
-			<span class="iconfont icon-user">23</span>
+			<span class="iconfont icon-user">哈哈哈，真是滑天下之大稽</span>
 		</div>
 		<!-- <Button>测试的</Button> -->
 		<nut-button type="primary">登录</nut-button>

@@ -11,6 +11,9 @@ import '@/assets/scss/index.scss'
 import '@/assets/iconfont/iconfont.css'
 import '@/assets/iconfont/iconfont.js'
 
+// 引入阿里巴巴普惠体 2.0字体
+import '@/assets/iconfont/font/font.css'
+
 import { createApp } from 'vue'
 import App from '@/App.vue'
 import router from './router' // 封装的路由
