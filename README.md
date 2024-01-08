@@ -197,6 +197,20 @@ function toLogin() {
   },
   	"include": ["vite.config.ts", "src/**/*.ts", "global/*.ts"]
 ```
+5、在src下新建vite-env.d.ts ,解决ts无法识别引入.vue后缀的文件夹
+```js
+/// <reference types="vite/client" />
+declare module '*.vue' {
+	import type { DefineComponent } from 'vue'
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+
+	const component: DefineComponent<{}, {}, any>
+
+	export default component
+}
+
+```
 每次修改完都要重启项目，或者关闭项目重启VSCode、重启项目。
 
 参考文章：https://blog.csdn.net/qq_17335549/article/details/135022054
