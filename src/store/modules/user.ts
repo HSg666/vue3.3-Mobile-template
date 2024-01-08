@@ -3,7 +3,7 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 export const useStore = defineStore({
 	id: 'user',
 	state: () => ({
-		name: 'old name',
+		name: '很老很老的值',
 	}),
 	getters: {
 		myName: state => {
@@ -14,6 +14,11 @@ export const useStore = defineStore({
 		changeName(name: string) {
 			this.name = name
 		},
+	},
+	persist: {
+		storage: localStorage, //default localStorage
+		//设置['phone'] -->只会将phone 这个key进行缓存
+		paths: ['name'],
 	},
 })
 

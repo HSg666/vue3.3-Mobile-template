@@ -276,4 +276,46 @@ div像素按UI设计稿的像素即可，页面自适应会自动转换的，无
 npm i -D vite-plugin-optimize-persist vite-plugin-package-config
 ```
 参考文章：https://www.cnblogs.com/fanqshun/p/16656142.html
+# 搭建三期
+## 1、pinia store数据长缓存
+
+1、安装
+```js
+pnpm add pinia-plugin-persistedstate@2.3.0 -S
+```
+
+2、pinia引入使用
+store/index.ts
+```js
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+// 使用持久化存储插件
+pinia.use(piniaPluginPersistedstate)
+```
+
+3、需要长缓存的store这样配置
+```js
+store/modules/user.ts
+
+export const useStore = defineStore({
+	id: 'user',
+	state: () => ({
+		name: '很老很老的值',
+	}),
+	actions: {
+		changeName(name: string) {
+			this.name = name
+		},
+	},
+	// 核心代码在这里 ↓
+	//persist:true //存储整个对象
+	// 选择性的长缓存
+	persist: {
+		storage: localStorage, //default localStorage
+		//设置['name'] -->只会将name 这个key进行缓存
+		paths: ['name'],
+	},
+})
+```
+参考文章： https://download.csdn.net/blog/column/12471199/133916576
 
