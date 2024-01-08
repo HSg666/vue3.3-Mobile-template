@@ -5,12 +5,21 @@
 html {
   @include root-font-size();
 }
-#app{
-      width: 100%;
-	height: 100%;
+#app,.app-container,.layout-content{
+      width: 100vw;
+	min-height: 100vh;
       font-family: '阿里巴巴普惠体 2.0 35 Thin';
       overflow-x: hidden;
 }
+.layout-footer{
+      width: 100vw;
+	height: 52px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
 
 //@author TalkTao
 

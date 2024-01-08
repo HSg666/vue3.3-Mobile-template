@@ -1,20 +1,64 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
+export const layoutRoutes: Array<RouteRecordRaw> = [
+	{
+		path: '/',
+		name: 'home',
+		meta: {
+			title: 'home',
+			keepAlive: true,
+		},
+		component: () => import('@/views/home/index.vue'),
+	},
+	{
+		path: '/category',
+		name: 'category',
+		meta: {
+			title: 'category',
+			// keepAlive: true,
+		},
+		component: () => import('@/views/category/index.vue'),
+	},
+	{
+		path: '/mycenter',
+		name: 'mycenter',
+		meta: {
+			title: 'mycenter',
+		},
+		component: () => import('@/views/mycenter/index.vue'),
+	},
+	{
+		path: '/shopcart',
+		name: 'shopcart',
+		meta: {
+			title: 'shopcart',
+		},
+		component: () => import('@/views/shopcart/index.vue'),
+	},
+]
+
 export const routes: Array<RouteRecordRaw> = [
 	{
 		path: '/',
-		redirect: '/login',
+		component: () => import('@/layout/index.vue'),
+		redirect: '/index',
+		// 需要layout的页面
+		children: layoutRoutes,
 	},
+
 	{
-		name: 'login',
 		path: '/login',
+		name: 'login',
 		component: () => import('@/views/login.vue'),
 	},
 	{
-		name: 'account',
 		path: '/account',
+		name: 'account',
 		component: () => import('@/views/account.vue'),
 	},
+
+	// 替代vue2中的'*'通配符路径
+	{ path: '/:pathMatch(.*)*', redirect: '/' },
 ]
 
 const router = createRouter({

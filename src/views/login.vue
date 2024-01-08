@@ -1,4 +1,5 @@
 <script lang="ts" setup name="login">
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/store'
 import { storeToRefs } from 'pinia'
@@ -15,6 +16,7 @@ const changStore = () => {
 	userStore.changeName('林生哥')
 	toAccount()
 }
+onMounted(() => {})
 </script>
 <template>
 	<div class="container">

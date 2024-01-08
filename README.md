@@ -325,3 +325,42 @@ export const useStore = defineStore({
 
 ## 3、引入免费的阿里巴巴普惠体 2.0字体  
 配置文章链接：https://blog.csdn.net/Steven_Son/article/details/128149269
+
+## 4、使用components下的组件时自动注册的插件  unplugin-vue-components
+作用：哪个页面要用到components下的组件无需import手动导入，直接<A/>使用即可。
+安装
+```js
+pnpm i unplugin-vue-components -D
+```
+文章链接：https://blog.csdn.net/weixin_42373175/article/details/130225348
+
+## 5、封装TabBar布局容器
+1、路径：src/layout/index.vue
+2、作用：页面整体的布局结构，如需增加/减少tabbar数量，增加时记得给新tabbar配置正确的路由，才能正常跳转。
+## 6、性能优化：需要keep-alive长缓存的组件在此配置
+
+1、路由设置keepAlive属性
+
+src/router/index.ts
+
+```js
+{
+		path: '/category',
+		name: 'category',
+		meta: {
+			title: 'category',
+			keepAlive: true,   // 加这一行
+		},
+		component: () => import('@/views/category/index.vue'),
+	},
+```
+
+2、到布局结构页面手动添加要keep-alive的组件名称
+
+src/layout/index.vue
+```js
+const routerStrArr = ['home']
+```
+
+浏览器可以搭配插件vue.js Devtools 查看以及控制台网络降速测试
+注意：最多缓存10个，缓存太多影响性能。

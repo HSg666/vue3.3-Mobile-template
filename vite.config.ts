@@ -6,8 +6,11 @@ import path from 'path'
 import legacy from '@vitejs/plugin-legacy' // 兼容web低版本浏览器插件
 import { getProcessEnv } from './src/global/env' // 获取项目请求地址
 import { createStyleImportPlugin } from 'vite-plugin-style-import'
+// 这两个是防止首屏渲染后进入子组件加载太慢的插件
 import OptimizationPersist from 'vite-plugin-optimize-persist'
 import PkgConfig from 'vite-plugin-package-config'
+// 全局自动注册components中的组件，需要使用到其中的组件无需import导入，直接使用即可
+import Components from 'unplugin-vue-components/vite'
 
 export default defineConfig({
 	server: {
@@ -54,14 +57,17 @@ export default defineConfig({
 				},
 			],
 		}),
+		// 这两个是防止首屏渲染后进入子组件加载太慢的插件
 		PkgConfig(),
 		OptimizationPersist(),
+		// 全局自动注册components中的组件，需要使用到其中的组件无需import导入，直接使用即可
+		Components({ dts: true }),
 	],
 	// 兼容web低版本浏览器插件 2
 	optimizeDeps: {
 		include: ['core-js', '@nutui/nutui', 'axios', 'lib-flexible/flexible.js', 'pinia', 'vue', 'vue-router'],
 	},
-	//新增
+	//路径别名 alias
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'), //把 src 的别名设置为 @
