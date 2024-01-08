@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-function toAccount() {
+const toAccount = () => {
 	router.push({
 		name: 'account',
 	})
@@ -12,6 +12,8 @@ function toAccount() {
 	<div class="container">
 		321321321321321
 		<div @click="toAccount">toAccount测试的撒</div>
+		<!-- <Button>测试的</Button> -->
+		<nut-button type="primary">登录</nut-button>
 		<router-view />
 	</div>
 </template>

@@ -1,24 +1,24 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "allowJs": true,
     "sourceMap": true,
     "paths": {
       "@/*": ["src/*"],
-    
+
     },
-    "target": "ES2020",
+    "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",
     "lib": [
-      "ES2020",
+      "ESNext",
       "DOM",
       "DOM.Iterable"
     ],
     "skipLibCheck": true,
     "esModuleInterop": true,
     /* Bundler mode */
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": false,
     "resolveJsonModule": true,
     "isolatedModules": true,

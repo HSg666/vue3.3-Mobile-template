@@ -8,6 +8,7 @@ cd learn-vite    // 切换
 pnpm i           // 装依赖
 pnpm start       // 启动
 pnpm run build   // 打包
+rm -rf node_modules  // 强行删除依赖包
 ```
 准备打包上线时请看搭建二期的 <a href="#requestURL">新增环境变量  优化请求地址</a>，检查完配置后再执行pnpm run build 打包
 
@@ -156,5 +157,46 @@ function toLogin() {
 	console.log(111)
 }
 ```
+## 5、封装按需导入NutUI组件库，plugins/nutui.ts
+## 6、解决main.ts 文件引入路径的问题
+1、如果引入路径正确，但是提示找不到文件，则删除'XX',重新引入
+2、检查vite.config.ts的路径别名配置是否正确,正确代码如下
+```js
+//新增
+	resolve: {
+		alias: {
+			'@': path.resolve(__dirname, './src'), //把 src 的别名设置为 @
+		},
+		extensions: ['.js', '.json', '.ts'], // 这些类型的文件后缀的不需要写
+	},
+```
+3、检查tsconfig.json的部分属性配置
+```js
+  "baseUrl": ".",
+  "paths": {"@/*": ["src/*"]},
+  "target": "ESNext",
+  "module": "ESNext",
+   "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+   "moduleResolution": "node",
+    "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue", 
+  	],
+```
+4、检查tsconfig.node.json的部分属性配置
+```js
+  "compilerOptions": {
+	"module": "ESNext",
+	"moduleResolution": "node",
+  },
+  	"include": ["vite.config.ts", "src/**/*.ts", "global/*.ts"]
+```
+每次修改完都要重启项目，或者关闭项目重启VSCode、重启项目。
 
 参考文章：https://blog.csdn.net/qq_17335549/article/details/135022054

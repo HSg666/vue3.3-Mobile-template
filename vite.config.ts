@@ -5,6 +5,7 @@ import WindiCss from 'vite-plugin-windicss' // css便捷样式库
 import path from 'path'
 import legacy from '@vitejs/plugin-legacy' // 兼容web低版本浏览器插件
 import { getProcessEnv } from './src/global/env' // 获取项目请求地址
+import { createStyleImportPlugin } from 'vite-plugin-style-import'
 
 export default defineConfig({
 	server: {
@@ -19,10 +20,17 @@ export default defineConfig({
 	css: {
 		postcss: {
 			plugins: [
+				// 浏览器兼容性
 				autoprefixer({
 					overrideBrowserslist: ['Chrome > 40', 'ff> 31', 'ie 11'],
 				}),
 			],
+		},
+		preprocessorOptions: {
+			scss: {
+				// 配置 nutui 全局 scss 变量
+				additionalData: `@import "@nutui/nutui/dist/styles/variables.scss";`,
+			},
 		},
 	},
 	plugins: [
@@ -32,6 +40,18 @@ export default defineConfig({
 		legacy({
 			targets: ['cover 99.5%'],
 		}),
+		// 按需导入NutUI
+		createStyleImportPlugin({
+			resolves: [
+				{
+					libraryName: '@nutui/nutui',
+					libraryNameChangeCase: 'pascalCase',
+					resolveStyle: name => {
+						return `@nutui/nutui/dist/packages/${name.toLowerCase()}/index.scss`
+					},
+				},
+			],
+		}),
 	],
 	// 兼容web低版本浏览器插件 2
 	optimizeDeps: {
@@ -40,8 +60,9 @@ export default defineConfig({
 	//新增
 	resolve: {
 		alias: {
-			'@': path.resolve(__dirname, './src'), //把 src 的别名设置为 @,
+			'@': path.resolve(__dirname, './src'), //把 src 的别名设置为 @
 		},
+		extensions: ['.js', '.json', '.ts'], // 这些类型的文件后缀的不需要写
 	},
 	build: {
 		outDir: path.resolve(__dirname, 'dist'), // 打包输出文件夹
