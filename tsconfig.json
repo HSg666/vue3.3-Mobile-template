@@ -5,6 +5,7 @@
     "sourceMap": true,
     "paths": {
       "@/*": ["src/*"],
+      "@/assets/*": ["src/assets/*"],
 
     },
     "target": "ESNext",
@@ -35,6 +36,7 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue", 
+
   ],
   "references": [
     {

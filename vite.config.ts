@@ -22,7 +22,7 @@ export default defineConfig({
 			plugins: [
 				// 浏览器兼容性
 				autoprefixer({
-					overrideBrowserslist: ['Chrome > 40', 'ff> 31', 'ie 11'],
+					overrideBrowserslist: ['Android 4.1', 'iOS 7.1', 'Chrome > 31', 'ff > 31', 'ie >= 8'],
 				}),
 			],
 		},
@@ -55,12 +55,13 @@ export default defineConfig({
 	],
 	// 兼容web低版本浏览器插件 2
 	optimizeDeps: {
-		include: ['core-js'],
+		include: ['core-js', '@nutui/nutui', 'axios', 'lib-flexible/flexible.js', 'pinia', 'vue', 'vue-router'],
 	},
 	//新增
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'), //把 src 的别名设置为 @
+			'@/assets': path.resolve(__dirname, './src/assets'),
 		},
 		extensions: ['.js', '.json', '.ts'], // 这些类型的文件后缀的不需要写
 	},

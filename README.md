@@ -29,6 +29,36 @@ common.scss  需要初始化全局样式可以在此文件编辑
 ## 9、router 封装 
 ## 10、配置路径别名 alias
 示例：@/store   只要在src下的都能这样简写
+
+总共分为4步：
+
+1、vite.config.ts
+
+```js
+import path from 'path'
+export default defineConfig({
+	//新增
+	resolve: {
+		alias: {
+			'@/assets': path.resolve(__dirname, './src/assets'),
+		},
+	},
+})
+```
+2、tsconfig.json
+```js
+ "paths": {
+      "@/assets/*": ["src/assets/*"],
+    }
+```
+3、配置好页面使用
+例如main.ts引入
+```js
+// 引入全局样式
+import '@/assets/scss/index.scss'
+```
+
+4、更改完vite.config.ts和tsconfig.json记得重启项目。
 ## 11、polyfill web项目兼容低版本浏览器插件
 core-js 和 @vitejs/plugin-legacy
 ## 12、prettier + eslint 配置了代码规范插件
@@ -157,9 +187,12 @@ function toLogin() {
 	console.log(111)
 }
 ```
-## 5、封装按需导入NutUI组件库，plugins/nutui.ts
+
+二期以上搭建内容参考的文章：https://blog.csdn.net/qq_17335549/article/details/135022054
+## 5、封装按需导入移动端NutUI组件库，plugins/nutui.ts
 ## 6、解决main.ts 文件引入路径的问题
 1、如果引入路径正确，但是提示找不到文件，则删除'XX',重新引入
+
 2、检查vite.config.ts的路径别名配置是否正确,正确代码如下
 ```js
 //新增
@@ -213,4 +246,30 @@ declare module '*.vue' {
 ```
 每次修改完都要重启项目，或者关闭项目重启VSCode、重启项目。
 
-参考文章：https://blog.csdn.net/qq_17335549/article/details/135022054
+## 7、Vue3+TS移动端自适应  采用的是postcss-pxtorem 和 lib-flexible
+1、安装
+```js
+pnpm install postcss-pxtorem@5.1.1 --save 
+pnpm install lib-flexible --save-dev
+```
+2、自定义封装自适应代码,src/assets,main.ts引入
+```js
+// 移动端适配
+import 'lib-flexible/flexible.js'
+// 引入全局样式
+import '@/assets/scss/index.scss'
+```
+3、vite.config.ts
+```js
+export default defineConfig({
+	optimizeDeps: {
+		include: ['lib-flexible/flexible.js'],
+	},
+})
+```
+
+4、组件使用
+说明：src/assets下自定义的项目宽尺寸是750，需要375的自行去更改
+div像素按UI设计稿的像素即可，页面自适应会自动转换的，无需担心。
+
+
