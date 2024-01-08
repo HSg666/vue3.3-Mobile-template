@@ -319,3 +319,8 @@ export const useStore = defineStore({
 ```
 参考文章： https://download.csdn.net/blog/column/12471199/133916576
 
+## 2、iconfont 阿里巴巴字体图标
+配置文章链接： https://blog.csdn.net/Steven_Son/article/details/128149868?csdn_share_tail=%7B%22type%22%3A%22blog%22%2C%22rType%22%3A%22article%22%2C%22rId%22%3A%22128149868%22%2C%22source%22%3A%22Steven_Son%22%7D
+
+
+

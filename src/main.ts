@@ -7,6 +7,10 @@ import 'lib-flexible/flexible.js'
 // 引入全局样式
 import '@/assets/scss/index.scss'
 
+// 引入阿里云字体图标css
+import '@/assets/iconfont/iconfont.css'
+import '@/assets/iconfont/iconfont.js'
+
 import { createApp } from 'vue'
 import App from '@/App.vue'
 import router from './router' // 封装的路由

@@ -19,12 +19,16 @@ const changStore = () => {
 <template>
 	<div class="container">
 		321321321321321
-		<div class="btn" @click="toAccount">toAccount测试的撒</div>
+		<div class="btn" @click="toAccount">
+			toAccount测试的撒
+			<span class="iconfont icon-user">23</span>
+		</div>
 		<!-- <Button>测试的</Button> -->
 		<nut-button type="primary">登录</nut-button>
 		<p>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</p>
 
 		<div @click="changStore">{{ name }}</div>
+
 		<router-view />
 	</div>
 </template>
