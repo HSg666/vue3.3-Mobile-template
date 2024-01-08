@@ -6,6 +6,8 @@ import path from 'path'
 import legacy from '@vitejs/plugin-legacy' // 兼容web低版本浏览器插件
 import { getProcessEnv } from './src/global/env' // 获取项目请求地址
 import { createStyleImportPlugin } from 'vite-plugin-style-import'
+import OptimizationPersist from 'vite-plugin-optimize-persist'
+import PkgConfig from 'vite-plugin-package-config'
 
 export default defineConfig({
 	server: {
@@ -52,6 +54,8 @@ export default defineConfig({
 				},
 			],
 		}),
+		PkgConfig(),
+		OptimizationPersist(),
 	],
 	// 兼容web低版本浏览器插件 2
 	optimizeDeps: {
