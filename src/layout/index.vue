@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { ref, reactive, toRefs, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
 
-const route = useRoute()
 const template = () => {}
 
 onMounted(() => {})
@@ -53,20 +51,15 @@ const { tabBar } = useTabBar()
 const routerStrArr = ['home']
 </script>
 <template>
-	<div class="app-container">
-		<div class="layout-content">
-			<!-- 2、 include：需要长缓存的组件名称  max：最多缓存10个，缓存太多影响性能  -->
-			<router-view v-slot="{ Component }">
-				<component :is="Component" v-if="!$route.meta.keepAlive" />
-				<KeepAlive :include="routerStrArr" :max="10">
-					<component :is="Component" v-if="$route.meta.keepAlive" />
-				</KeepAlive>
-			</router-view>
-		</div>
-		<div class="layout-footer">
-			<TabBar :data="tabBar"></TabBar>
-		</div>
-	</div>
+	<!-- 2、 include：需要长缓存的组件名称  max：最多缓存10个，缓存太多影响性能  -->
+	<router-view v-slot="{ Component }">
+		<component :is="Component" v-if="!$route.meta.keepAlive" />
+		<KeepAlive :include="routerStrArr" :max="10">
+			<component :is="Component" v-if="$route.meta.keepAlive" />
+		</KeepAlive>
+	</router-view>
+
+	<TabBar :data="tabBar"></TabBar>
 </template>
 
 <style scoped lang="scss"></style>

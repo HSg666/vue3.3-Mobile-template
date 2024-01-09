@@ -1,5 +1,3 @@
-import './style.css'
-import './common.scss' // 公共样式
 import 'virtual:windi.css' // 引入便捷css库
 import '@/polyfill/polyfill' // 安装web兼容低版本浏览器插件
 // 移动端适配

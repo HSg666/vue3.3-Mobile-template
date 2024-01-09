@@ -1,11 +1,24 @@
 <script lang="ts" setup name="home">
 import { onMounted } from 'vue'
-const template = () => {}
 
 onMounted(() => {})
 </script>
 <template>
-	<div>首页</div>
+	<nut-navbar title="首页">
+		<template #left></template>
+	</nut-navbar>
+	<!-- <div class="container">
+		首页
+		
+	</div> -->
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.container {
+	width: 100%;
+	height: 1000px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	background-color: #949090;
+}
+</style>

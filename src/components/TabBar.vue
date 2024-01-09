@@ -7,15 +7,18 @@ export default {
 import { ref } from 'vue'
 
 interface tabProps {
-	data?: [
+	data: [
 		{
 			title: string
-			to: string
-			name: string
+			to: tabTo
 			icon: string
-			badge: number
+			badge?: number | undefined
 		},
 	]
+}
+
+interface tabTo {
+	name: string
 }
 
 const props = defineProps<tabProps>()
@@ -26,7 +29,7 @@ const isButton = ref(true)
 </script>
 
 <template>
-	<nut-tabbar v-model="active" :bottom="isButton" unactive-color="#7d7e80" active-color="#1989fa">
+	<nut-tabbar v-model="active" :bottom="isButton" unactive-color="#323240" active-color="#ee0a24">
 		<nut-tabbar-item v-for="(item, index) in props.data" :key="index" :to="item.to.name" :tab-title="item.title" :icon="item.icon" :num="item.badge"></nut-tabbar-item>
 	</nut-tabbar>
 </template>

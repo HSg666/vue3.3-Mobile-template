@@ -5,7 +5,9 @@ const template = () => {}
 onMounted(() => {})
 </script>
 <template>
-	<div>购物车</div>
+	<nut-navbar title="购物车">
+		<template #left></template>
+	</nut-navbar>
 </template>
 
 <style scoped lang="scss"></style>

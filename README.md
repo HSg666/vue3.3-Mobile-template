@@ -363,4 +363,5 @@ const routerStrArr = ['home']
 ```
 
 浏览器可以搭配插件vue.js Devtools 查看以及控制台网络降速测试
+
 注意：最多缓存10个，缓存太多影响性能。

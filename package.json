@@ -4,6 +4,7 @@
 	"version": "0.0.0",
 	"scripts": {
 		"start": "vite",
+		"testMobile": "vite --host 192.168.1.193",
 		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "husky install"
