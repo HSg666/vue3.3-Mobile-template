@@ -190,6 +190,7 @@ function toLogin() {
 
 二期以上搭建内容参考的文章：https://blog.csdn.net/qq_17335549/article/details/135022054
 ## 5、封装按需导入移动端NutUI组件库，plugins/nutui.ts
+官网地址：https://nutui.jd.com/3x/?from=thosefree.com#/zh-CN/component/button
 ## 6、解决main.ts 文件引入路径的问题
 1、如果引入路径正确，但是提示找不到文件，则删除'XX',重新引入
 
@@ -379,3 +380,15 @@ const routerStrArr = ['home']
 位置：安全中心 —— 防火墙和网络保护
 
 3、pnpm testMobild 启动项目，手机访问启动后的项目链接。
+
+## 8、新增vConsole移动端调试工具
+1、安装
+```js
+pnpm i vconsole
+```
+2、使用时在src/main.ts 打开，不用就注释
+```js
+import '@/utils/vconsole.ts'
+```
+
+## 9、为index.html增加防盗链，解决图片403

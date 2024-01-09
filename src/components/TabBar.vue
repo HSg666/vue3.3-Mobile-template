@@ -34,8 +34,4 @@ const isButton = ref(true)
 	</nut-tabbar>
 </template>
 
-<style lang="scss" scoped>
-// :global(.nut-tabbar-bottom) {
-// 	bottom: 36px !important;
-// }
-</style>
+<style lang="scss" scoped></style>

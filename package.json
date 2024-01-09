@@ -17,6 +17,7 @@
 		"pinia": "^2.1.7",
 		"pinia-plugin-persistedstate": "2.3.0",
 		"postcss-pxtorem": "^5.1.1",
+		"vconsole": "^3.15.1",
 		"vue": "^3.3.11",
 		"vue-router": "^4.2.5"
 	},

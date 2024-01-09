@@ -14,6 +14,8 @@ import Components from 'unplugin-vue-components/vite'
 
 export default defineConfig({
 	server: {
+		host: '0.0.0.0',
+		port: 5173,
 		proxy: {
 			'^/api': {
 				target: `${getProcessEnv('SERVER_URL') || ''}`, //目标源，目标服务器，真实请求地址

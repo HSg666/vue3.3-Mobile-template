@@ -13,9 +13,19 @@ html {
 
 #app{
       width: 100%;
-	height: 100%;
+	height: 100vh;
       font-family: '阿里巴巴普惠体 2.0 35 Thin';
       overflow-x: hidden;
+      
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
 }
 
 

@@ -12,6 +12,9 @@ import '@/assets/iconfont/iconfont.js'
 // 引入阿里巴巴普惠体 2.0字体
 import '@/assets/iconfont/font/font.css'
 
+// 这是移动端控制台调试工具，需要调试就打开,不用就注释
+// import '@/utils/vconsole.ts'
+
 import { createApp } from 'vue'
 import App from '@/App.vue'
 import router from './router' // 封装的路由
