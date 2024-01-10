@@ -272,11 +272,7 @@ export default defineConfig({
 4、组件使用
 说明：src/assets下自定义的项目宽尺寸是750，需要375的自行去更改
 div像素按UI设计稿的像素即可，页面自适应会自动转换的，无需担心。
-## 8、vite性能优化：处理Vite项目首屏加载响应迟缓和二次刷新的问题   
-```js
-npm i -D vite-plugin-optimize-persist vite-plugin-package-config
-```
-参考文章：https://www.cnblogs.com/fanqshun/p/16656142.html
+
 # 搭建三期
 ## 1、pinia store数据长缓存
 
