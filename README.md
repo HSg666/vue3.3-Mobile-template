@@ -376,7 +376,7 @@ const routerStrArr = ['home']
 		"testMobile": "vite --host 192.168.1.193"
 	}
 ```
-2、电脑关闭防火墙，这三个都要关闭：域网络、专用网络、公用网络。
+2、电脑(windows)关闭防火墙，这三个都要关闭：域网络、专用网络、公用网络。
 位置：安全中心 —— 防火墙和网络保护
 
 3、pnpm testMobild 启动项目，手机访问启动后的项目链接。
@@ -392,3 +392,6 @@ import '@/utils/vconsole.ts'
 ```
 
 ## 9、为index.html增加防盗链，解决图片403
+
+## 10、新增如果是PC端网页，则动态创建一个iframed结构包裹项目，让网页自动居中。
+具体代码逻辑在 src/App.vue  onMounted中

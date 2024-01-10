@@ -17,6 +17,7 @@ html {
       font-family: '阿里巴巴普惠体 2.0 35 Thin';
       overflow-x: hidden;
       
+      // 当用户试图选择页面上的文本时，这个属性可以防止文本被选中。
       -webkit-touch-callout: none;
       -webkit-user-select: none;
       -khtml-user-select: none;
@@ -24,7 +25,12 @@ html {
       -ms-user-select: none;
       user-select: none;
 
+
+      /* 这个属性是用于WebKit浏览器（例如Safari和Chrome）的。它控制文本的平滑显示方式。
+      antialiased值表示文本将使用抗锯齿技术来平滑显示，从而使文本看起来更加清晰和光滑。 */
       -webkit-font-smoothing: antialiased;
+      /* 这个属性是用于Mozilla浏览器（例如Firefox）在OS X系统上的。它也控制文本的平滑显示方式。
+      grayscale值表示文本将使用灰度平滑技术来显示，这通常会使文本看起来更加清晰，特别是在高分辨率屏幕上。 */
       -moz-osx-font-smoothing: grayscale;
 }
 
