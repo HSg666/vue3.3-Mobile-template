@@ -1,13 +1,11 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue'
-const template = () => {}
+import { onMounted, ref } from 'vue'
+const isFixed = ref(true)
 
 onMounted(() => {})
 </script>
 <template>
-	<nut-navbar title="商品分类">
-		<template #left></template>
-	</nut-navbar>
+	<van-nav-bar title="商品分类" :fixed="isFixed" />
 </template>
 
 <style scoped lang="scss"></style>

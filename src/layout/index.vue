@@ -14,30 +14,29 @@ const useTabBar = () => {
 				to: {
 					name: 'home',
 				},
-				icon: 'home',
+				icon: 'home-o',
 			},
 			{
 				title: '分类',
 				to: {
 					name: 'category',
 				},
-				icon: 'category',
+				icon: 'apps-o',
 			},
 			{
 				title: '购物车',
 				to: {
 					name: 'shopcart',
 				},
-				icon: 'cart',
+				icon: 'shopping-cart-o',
 				badge: 0,
 			},
 			{
 				title: '我的',
 				to: {
 					name: 'mycenter',
-					// name: "authLogin",
 				},
-				icon: 'my',
+				icon: 'contact-o',
 			},
 		],
 	})

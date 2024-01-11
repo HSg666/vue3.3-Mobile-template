@@ -15,9 +15,22 @@ const $api = new API({
 $api.request.interceptors.request.use((config: any) => {
 	const headers = config.headers || {}
 	// 这个地方可以自定义请求头
+	/**
+	 * 请求拦截器
+	 * 客户端发送请求 -> [请求拦截器] -> 服务器
+	 * token校验(JWT) : 接受服务器返回的token,存储到pinia或本地储存当中
+	 */
+
+	// 获取缓存中的token，如果没有则去登录页
+	// const token = localStorage.getItem('longsheng_token') || ''
+	// if (!token) {
+	// 	// 跳转到登录页面
+	// 	window.location.href = '/login'
+	// }
+
 	config.headers = {
+		// Authorization: token, // 这个是自定义的请求头，还可以加 token 等
 		...headers,
-		language: 'en', // 这个是自定义的请求头，还可以加 token 等
 	}
 	return config
 })
@@ -26,7 +39,8 @@ $api.request.interceptors.request.use((config: any) => {
 $api.request.interceptors.response.use(undefined, async (err: AxiosRequestError) => {
 	err = handleError(err) // 调用我们自定义的 错误处理方法
 	if (err.isUnAuthorized) {
-		// 未授权的情况的处理
+		// 401未授权的情况的处理    直接去登录页
+		// window.location.href = '/login'
 	}
 	// 还可以自定义其他的情况的处理
 

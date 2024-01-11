@@ -8,7 +8,7 @@ export const PROD_ENV = {
 
 // 测试环境
 export const DEV_ENV = {
-	SERVER_URL: 'http://192.168.1.193:8099/',
+	SERVER_URL: 'http://127.0.0.1:8099/',
 	IS_DEV: 'true',
 }
 

@@ -124,7 +124,8 @@ const getShop = async () => {
 }
 
 // 原生Primise  .then  .catch
-$api.get(APIs.GET_SHOPLIST)
+const params = { user:'', password:'' }  // 传参将需要传的值放入即可，跟vue2一样 
+$api.get(APIs.GET_SHOPLIST, params)
 	.then(() => {})
 	.catch((err: AxiosRequestError) => {
 		console.dir(err, 'err')
@@ -138,6 +139,9 @@ data: undefined,  // 接口返回值为undefined
 isServerError: false, // 是否为服务器出错
 
 isUnAuthorized: false, // 是否已通过鉴权，也就是常见的登录状态
+
+（4）如果要添加或使用自定义请求函数，请在src/service/requestList.ts中添加，类似于已经存在的上传图片接口
+
 ## <a id="requestURL">3、新增环境变量  优化请求地址</a>
 测试和正式环境地址在 global/env.ts 中配置
 ```js
@@ -189,8 +193,57 @@ function toLogin() {
 ```
 
 二期以上搭建内容参考的文章：https://blog.csdn.net/qq_17335549/article/details/135022054
-## 5、封装按需导入移动端NutUI组件库，plugins/nutui.ts
-官网地址：https://nutui.jd.com/3x/?from=thosefree.com#/zh-CN/component/button
+## 5、移动端UI库采用Vant4
+1、已经在vite.config.ts对vant组件和css做了按需导入优化，.vue后缀的组件使用时无需手动引入，直接使用即可。 
+2、除了.Vue的文件，例如.js 或 .ts 如需用到，则需手动引入。
+
+```js
+XX.js 或 XX.ts
+// 示例：
+ import { Toast } from 'vant'
+```
+3、按需导入具体逻辑
+
+①、UI组件
+
+由于引入了unplugin-vue-components/vite这个自动化导入组件插件，我们使用组件时不再需要手动import导入了。
+它帮我们自动导入的组件存于components.d.ts中。vant-ui的按需导入在unplugin-vue-components/resolvers中，取出放置Components。
+
+```js
+import Components from 'unplugin-vue-components/vite'
+
+export default defineConfig({
+	plugins: [
+		Components({
+			dts: true,
+			resolvers: [VantResolver()],
+		}),
+	]
+})
+```
+
+2、UI样式
+
+通过vite-plugin-style-import插件取出创建出按需导入样式函数，在函数体中配置vant用到的样式路径。
+
+代码如下：
+```js
+import { createStyleImportPlugin } from 'vite-plugin-style-import'
+
+createStyleImportPlugin({
+			resolves: [
+				{
+					libraryName: 'vant',
+					libraryNameChangeCase: 'pascalCase',
+					resolveStyle: name => {
+						return `vant/es/${name.toLowerCase()}/index.css`
+					},
+				},
+			],
+		}),
+```
+
+UI库官网地址：https://vant-ui.github.io/vant/#/zh-CN/button
 ## 6、解决main.ts 文件引入路径的问题
 1、如果引入路径正确，但是提示找不到文件，则删除'XX',重新引入
 
@@ -208,10 +261,12 @@ function toLogin() {
 ```js
   "baseUrl": ".",
   "paths": {"@/*": ["src/*"]},
-  "target": "ESNext",
-  "module": "ESNext",
+  "target": "ES2020",
+  "module": "ES2020",
    "lib": [
-      "ESNext",
+      "es2020",
+      "es5", 
+      "es6",
       "DOM",
       "DOM.Iterable"
     ],
@@ -226,8 +281,9 @@ function toLogin() {
 4、检查tsconfig.node.json的部分属性配置
 ```js
   "compilerOptions": {
-	"module": "ESNext",
+	"module": "ES2020",
 	"moduleResolution": "node",
+	"allowSyntheticDefaultImports": true
   },
   	"include": ["vite.config.ts", "src/**/*.ts", "global/*.ts"]
 ```
@@ -247,31 +303,63 @@ declare module '*.vue' {
 ```
 每次修改完都要重启项目，或者关闭项目重启VSCode、重启项目。
 
-## 7、Vue3+TS移动端自适应  采用的是postcss-pxtorem 和 lib-flexible
+## 7、Vue3+TS移动端自适应  采用的是postcss-px-to-viewport
 1、安装
 ```js
-pnpm install postcss-pxtorem@5.1.1 --save 
-pnpm install lib-flexible --save-dev
-```
-2、自定义封装自适应代码,src/assets,main.ts引入
-```js
-// 移动端适配
-import 'lib-flexible/flexible.js'
-// 引入全局样式
-import '@/assets/scss/index.scss'
-```
-3、vite.config.ts
-```js
-export default defineConfig({
-	optimizeDeps: {
-		include: ['lib-flexible/flexible.js'],
-	},
-})
+pnpm install postcss-px-to-viewport@1.1.1 --save-dev  
 ```
 
-4、组件使用
-说明：src/assets下自定义的项目宽尺寸是750，需要375的自行去更改
-div像素按UI设计稿的像素即可，页面自适应会自动转换的，无需担心。
+2、vite.config.ts
+```js
+import postcsspxtoviewport from 'postcss-px-to-viewport'
+
+export default defineConfig({
+	css: {
+		postcss: {
+			plugins: [
+				postcsspxtoviewport({
+					unitToConvert: 'px', // 要转化的单位
+					viewportWidth: 750, // UI设计稿的宽度，如果你的设计稿是375就改成375  
+					unitPrecision: 6, // 转换后的精度，即小数点位数
+					propList: ['*'], // 指定转换的css属性的单位，*代表全部css属性的单位都进行转换
+					viewportUnit: 'vw', // 指定需要转换成的视窗单位，默认vw
+					fontViewportUnit: 'vw', // 指定字体需要转换成的视窗单位，默认vw
+					selectorBlackList: ['ignore-'], // 指定不转换为视窗单位的类名，
+					minPixelValue: 1, // 默认值1，小于或等于1px则不进行转换
+					mediaQuery: true, // 是否在媒体查询的css代码中也进行转换，默认false
+					replace: true, // 是否转换后直接更换属性值
+					exclude: [/node_modules\/vant/], // 设置忽略文件，用正则做目录名匹配
+					landscape: false, // 是否处理横屏情况
+				}),
+			]
+		}
+	}
+})
+```
+提示：如果你的设计稿是375就把750改一下即可。
+3、解决 Vant 375 设计尺寸问题
+Vant自带是375尺寸的，而我们是750最后插件帮我们转化为375的，也就是我们写的px都是2倍的，如果vant也跟着转化那就是375 / 2，但它不需要转化，所以在转换时我们忽略它。
+如果你的设计稿是375，那就不用将忽略vant。  
+```js
+exclude: [/node_modules\/vant/], // 设置忽略文件，用正则做目录名匹配
+```
+4、注意：这个自适应插件只会转换内联样式，行内样式不会转换。
+- 内联样式：我的设计稿是750，到网页时px经过postcss的处理后自动除以2，等于15px。   如果你是375，px则无需乘以2。
+```css
+<style scoped lang="scss">
+.box{
+	font-size: 30px; 
+}
+</style>
+```
+
+- 行内样式：写多少就是多少
+```html
+<span style="font-size: 15px">测试</span>
+```
+
+
+参考文章：https://www.cnblogs.com/goloving/p/15238345.html
 
 # 搭建三期
 ## 1、pinia store数据长缓存
@@ -390,4 +478,20 @@ import '@/utils/vconsole.ts'
 ## 9、为index.html增加防盗链，解决图片403
 
 ## 10、新增如果是PC端网页，则动态创建一个iframed结构包裹项目，让网页自动居中。
+
 具体代码逻辑在 src/App.vue  onMounted中
+
+## 11、为每次打包的文件后缀添加打包时的时间戳，防止打包上线页面缓存的问题
+vite.config.ts  timeStamp
+
+## 拓展：如果不知道怎么用Nginx部署前端打包后的dist,可以看这篇文章
+https://blog.csdn.net/Steven_Son/article/details/135414494?spm=1001.2014.3001.5501
+
+## 如果要做JWT免登，请根据你的需求对以下几个文件进行更改
+1、src/service/webRequest.ts  设置token的地方
+2、src/service/error.ts   错误报错页
+3、src/login/index.vue   登录页，登录后可能就要保存token了
+
+
+Author: Houslin
+博客：https://blog.csdn.net/Steven_Son

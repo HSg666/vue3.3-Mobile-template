@@ -1,10 +1,8 @@
 @font-face {
-	font-family: '阿里巴巴普惠体 2.0 35 Thin';
+	font-family: '思源宋体 Regular';
+	font-weight: 400;
 	src:
-		url('Alibaba_PuHuiTi_2.0_35_Thin_35_Thin.woff2?t=1545807318834') format('woff2'),
-		url('Alibaba_PuHuiTi_2.0_35_Thin_35_Thin.woff?t=1545807318834') format('woff'),
-		url('Alibaba_PuHuiTi_2.0_35_Thin_35_Thin.ttf?t=1545807318834') format('truetype');
+		url('e2IwCzChvAqZ.woff?t=1704938355835') format('woff'),
+		url('e2IwCzChvAqZ.woff2?t=1704938355835') format('woff2');
 	font-display: swap;
-	font-weight: 250;
-	font-style: normal;
 }
