@@ -1,4 +1,7 @@
+# 移动端开发脚手架 Vue3.3 + TS + Vite + Vant4 + Pinia
+
 # 技术栈： Vue 3.3 / TS 5.2 / Vite5.0 / Pinia2.1.7 / router4.2.5 
+
 # 环境： Node:16.20.1    pnpm:8.14.0
 # 代码管理工具：sourceTree
 
@@ -410,8 +413,8 @@ export const useStore = defineStore({
 配置文章链接： https://blog.csdn.net/Steven_Son/article/details/128149868?csdn_share_tail=%7B%22type%22%3A%22blog%22%2C%22rType%22%3A%22article%22%2C%22rId%22%3A%22128149868%22%2C%22source%22%3A%22Steven_Son%22%7D
 
 
-## 3、引入免费的阿里巴巴普惠体 2.0字体  
-配置文章链接：https://blog.csdn.net/Steven_Son/article/details/128149269
+## 3、引入免费的阿里巴巴思源宋体字体  
+配置文章链接：https://www.iconfont.cn/fonts/detail?spm=a313x.fonts_index.i1.d9df05512.7ccd3a81uTg3IB&cnid=nsKKStjV4gdI
 
 ## 4、使用components下的组件时自动注册的插件  unplugin-vue-components
 作用：哪个页面要用到components下的组件无需import手动导入，直接<A/>使用即可。
