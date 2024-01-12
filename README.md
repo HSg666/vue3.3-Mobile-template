@@ -27,7 +27,7 @@ rm -rf node_modules  // 强行删除依赖包
 common.scss  需要初始化全局样式可以在此文件编辑
 ## 5、autoprefiexer 自动增加css浏览器兼容前缀
 ## 6、windicss  第三方便捷性css库
-## 7、封装Antd / Vant-ui按需导入 
+## 7、封装Vant-ui按需导入 
 ## 8、pinia 封装统一管理存储库 
 ## 9、router 封装 
 ## 10、配置路径别名 alias
@@ -197,57 +197,8 @@ function toLogin() {
 
 二期以上搭建内容参考的文章：https://blog.csdn.net/qq_17335549/article/details/135022054
 ## 5、移动端UI库采用Vant4
-1、已经在vite.config.ts对vant组件和css做了按需导入优化，.vue后缀的组件使用时无需手动引入，直接使用即可。 
-2、除了.Vue的文件，例如.js 或 .ts 如需用到，则需手动引入。
+按需导入详细说明文章：https://blog.csdn.net/Steven_Son/article/details/135544198?spm=1001.2014.3001.5501
 
-```js
-XX.js 或 XX.ts
-// 示例：
- import { Toast } from 'vant'
-```
-3、按需导入具体逻辑
-
-①、UI组件
-
-由于引入了unplugin-vue-components/vite这个自动化导入组件插件，我们使用组件时不再需要手动import导入了。
-它帮我们自动导入的组件存于components.d.ts中。vant-ui的按需导入在unplugin-vue-components/resolvers中，取出放置Components。
-
-```js
-import Components from 'unplugin-vue-components/vite'
-
-export default defineConfig({
-	plugins: [
-		Components({
-			dts: true,
-			resolvers: [VantResolver()],
-		}),
-	]
-})
-```
-
-2、UI样式
-
-通过vite-plugin-style-import插件取出创建出按需导入样式函数，在函数体中配置vant用到的样式路径。
-
-代码如下：
-```js
-import { createStyleImportPlugin } from 'vite-plugin-style-import'
-
-createStyleImportPlugin({
-			resolves: [
-				{
-					libraryName: 'vant',
-					libraryNameChangeCase: 'pascalCase',
-					resolveStyle: name => {
-						return `vant/es/${name.toLowerCase()}/index.css`
-					},
-				},
-			],
-		}),
-```
-4、这个UI按需导入跟以往有什么区别呢？
-以往我们都是单独在plugins中单独创建vant.ts，里面存着要用到的UI组件，用到一个就去手动添加，不要就手动删除，最后在main.ts中统一导入，比较繁琐，半自动化。
-现在已无需在手动去添加、删除，以及去main.ts中引入了，只需要在vite.config.ts中配置好即可，非常方便。这才是真正意义上的UI组件按需导入。要感谢那些大佬们开发的插件，让我们开发时可以简化一些操作，提高开发效率。
 UI库官网地址：https://vant-ui.github.io/vant/#/zh-CN/button
 ## 6、解决main.ts 文件引入路径的问题
 1、如果引入路径正确，但是提示找不到文件，则删除'XX',重新引入
@@ -309,105 +260,12 @@ declare module '*.vue' {
 每次修改完都要重启项目，或者关闭项目重启VSCode、重启项目。
 
 ## 7、Vue3+TS移动端自适应  采用的是postcss-px-to-viewport
-1、安装
-```js
-pnpm install postcss-px-to-viewport@1.1.1 --save-dev  
-```
+详细配置说明看这篇文章：明天发布
 
-2、vite.config.ts
-```js
-import postcsspxtoviewport from 'postcss-px-to-viewport'
-
-export default defineConfig({
-	css: {
-		postcss: {
-			plugins: [
-				postcsspxtoviewport({
-					unitToConvert: 'px', // 要转化的单位
-					viewportWidth: 750, // UI设计稿的宽度，如果你的设计稿是375就改成375  
-					unitPrecision: 6, // 转换后的精度，即小数点位数
-					propList: ['*'], // 指定转换的css属性的单位，*代表全部css属性的单位都进行转换
-					viewportUnit: 'vw', // 指定需要转换成的视窗单位，默认vw
-					fontViewportUnit: 'vw', // 指定字体需要转换成的视窗单位，默认vw
-					selectorBlackList: ['ignore-'], // 指定不转换为视窗单位的类名，
-					minPixelValue: 1, // 默认值1，小于或等于1px则不进行转换
-					mediaQuery: true, // 是否在媒体查询的css代码中也进行转换，默认false
-					replace: true, // 是否转换后直接更换属性值
-					exclude: [/node_modules\/vant/], // 设置忽略文件，用正则做目录名匹配
-					landscape: false, // 是否处理横屏情况
-				}),
-			]
-		}
-	}
-})
-```
-提示：如果你的设计稿是375就把750改一下即可。
-3、解决 Vant 375 设计尺寸问题
-Vant自带是375尺寸的，而我们是750最后插件帮我们转化为375的，也就是我们写的px都是2倍的，如果vant也跟着转化那就是375 / 2，但它不需要转化，所以在转换时我们忽略它。
-如果你的设计稿是375，那就不用将忽略vant。  
-```js
-exclude: [/node_modules\/vant/], // 设置忽略文件，用正则做目录名匹配
-```
-4、注意：这个自适应插件只会转换内联样式，行内样式不会转换。
-- 内联样式：我的设计稿是750，到网页时px经过postcss的处理后自动除以2，等于15px。   如果你是375，px则无需乘以2。
-```css
-<style scoped lang="scss">
-.box{
-	font-size: 30px; 
-}
-</style>
-```
-
-- 行内样式：写多少就是多少
-```html
-<span style="font-size: 15px">测试</span>
-```
-
-
-参考文章：https://www.cnblogs.com/goloving/p/15238345.html
 
 # 搭建三期
 ## 1、pinia store数据长缓存
-
-1、安装
-```js
-pnpm add pinia-plugin-persistedstate@2.3.0 -S
-```
-
-2、pinia引入使用
-store/index.ts
-```js
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-
-// 使用持久化存储插件
-pinia.use(piniaPluginPersistedstate)
-```
-
-3、需要长缓存的store这样配置
-```js
-store/modules/user.ts
-
-export const useStore = defineStore({
-	id: 'user',
-	state: () => ({
-		name: '很老很老的值',
-	}),
-	actions: {
-		changeName(name: string) {
-			this.name = name
-		},
-	},
-	// 核心代码在这里 ↓
-	//persist:true //存储整个对象
-	// 选择性的长缓存
-	persist: {
-		storage: localStorage, //default localStorage
-		//设置['name'] -->只会将name 这个key进行缓存
-		paths: ['name'],
-	},
-})
-```
-参考文章： https://download.csdn.net/blog/column/12471199/133916576
+详细配置请看这篇：https://blog.csdn.net/Steven_Son/article/details/135551314?spm=1001.2014.3001.5501
 
 ## 2、iconfont 阿里巴巴字体图标
 配置文章链接： https://blog.csdn.net/Steven_Son/article/details/128149868?csdn_share_tail=%7B%22type%22%3A%22blog%22%2C%22rType%22%3A%22article%22%2C%22rId%22%3A%22128149868%22%2C%22source%22%3A%22Steven_Son%22%7D
@@ -471,14 +329,7 @@ const routerStrArr = ['home']
 3、pnpm testMobild 启动项目，手机访问启动后的项目链接。
 
 ## 8、新增vConsole移动端调试工具
-1、安装
-```js
-pnpm i vconsole
-```
-2、使用时在src/main.ts 打开，不用就注释
-```js
-import '@/utils/vconsole.ts'
-```
+详细文章看这篇：后天发布。
 
 ## 9、为index.html增加防盗链，解决图片403
 

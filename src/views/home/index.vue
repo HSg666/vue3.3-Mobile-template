@@ -35,7 +35,7 @@ onMounted(() => {})
 			<div class="wrapper">
 				<div class="content">
 					<div class="box">
-						<div class="left" style="width: 25%; height: 100%; background-color: deepskyblue; text-align: center; line-height: 40px; font-size: 15px">标题</div>
+						<div class="left" style="width: 25%; height: 100%; background-color: deepskyblue; text-align: center">标题</div>
 						<div class="right" style="width: 75%; height: 100%; background-color: orange"></div>
 					</div>
 					<div class="box">
@@ -100,8 +100,9 @@ onMounted(() => {})
 	background-color: pink;
 	display: flex;
 	padding-bottom: 10px;
+	line-height: 50px;
 	.left {
-		font-size: 30px;
+		font-size: 20px;
 	}
 }
 
