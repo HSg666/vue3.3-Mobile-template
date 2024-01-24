@@ -35,14 +35,6 @@ const login = () => {
 			console.dir(err, 'err')
 		})
 
-	// $api.post(APIs.POST_LOGIN, params)
-	// 	.then(res => {
-	// 		console.log(res, 'res')
-	// 	})
-	// 	.catch((err: AxiosRequestError) => {
-	// 		console.dir(err, 'err')
-	// 	})
-
 	// router.push('/')
 	console.log('账号:', username.value)
 	console.log('密码:', password.value)
