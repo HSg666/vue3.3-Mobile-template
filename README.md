@@ -260,7 +260,7 @@ declare module '*.vue' {
 每次修改完都要重启项目，或者关闭项目重启VSCode、重启项目。
 
 ## 7、Vue3+TS移动端自适应  采用的是postcss-px-to-viewport
-详细配置说明看这篇文章：明天发布
+详细配置说明看这篇文章：https://blog.csdn.net/Steven_Son/article/details/135554296?spm=1001.2014.3001.5501
 
 
 # 搭建三期
@@ -329,7 +329,7 @@ const routerStrArr = ['home']
 3、pnpm testMobild 启动项目，手机访问启动后的项目链接。
 
 ## 8、新增vConsole移动端调试工具
-详细文章看这篇：后天发布。
+详细文章看这篇：https://blog.csdn.net/Steven_Son/article/details/135555570?spm=1001.2014.3001.5501
 
 ## 9、为index.html增加防盗链，解决图片403
 

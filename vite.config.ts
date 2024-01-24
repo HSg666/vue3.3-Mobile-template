@@ -5,7 +5,7 @@ import WindiCss from 'vite-plugin-windicss' // css便捷样式库
 import path from 'path'
 import legacy from '@vitejs/plugin-legacy' // 兼容web低版本浏览器插件
 import { getProcessEnv } from './src/global/env' // 获取项目请求地址
-import { createStyleImportPlugin } from 'vite-plugin-style-import' // 按需导入UI库样式的css路径，不配置UI库没样式
+
 const timeStamp = new Date().getTime() // 为每次打包的文件新增当前的时间戳，防止页面缓存的问题
 // 全局自动注册components中的组件，需要使用到其中的组件无需import导入，直接使用即可
 import Components from 'unplugin-vue-components/vite'
@@ -54,18 +54,6 @@ export default defineConfig({
 		// 兼容web低版本浏览器插件 1
 		legacy({
 			targets: ['cover 99.5%'],
-		}),
-		// 按需导入VantUI
-		createStyleImportPlugin({
-			resolves: [
-				{
-					libraryName: 'vant',
-					libraryNameChangeCase: 'pascalCase',
-					resolveStyle: name => {
-						return `vant/es/${name.toLowerCase()}/index.css`
-					},
-				},
-			],
 		}),
 
 		// 全局自动注册components中的组件，需要使用到其中的组件无需import导入，直接使用即可

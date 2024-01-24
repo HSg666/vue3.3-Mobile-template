@@ -5,6 +5,9 @@ import $api from '@/service/webRequest'
 import { APIs } from '@/service/apiList'
 import AxiosRequestError from '@/service/error' // 引入自定义错误处理函数
 
+import 'vant/es/toast/style'
+import { showFailToast } from 'vant'
+
 const router = useRouter()
 const username = ref('')
 const password = ref('')
@@ -22,8 +25,9 @@ const login = () => {
 		username,
 		password,
 	}
+	showFailToast('提示内容')
 
-	$api.post(APIs.POST_LOGIN, params)
+	$api.get(APIs.GET_SHOPLIST_PROD)
 		.then(res => {
 			console.log(res, 'res')
 		})
@@ -31,8 +35,15 @@ const login = () => {
 			console.dir(err, 'err')
 		})
 
-	router.push('/')
+	// $api.post(APIs.POST_LOGIN, params)
+	// 	.then(res => {
+	// 		console.log(res, 'res')
+	// 	})
+	// 	.catch((err: AxiosRequestError) => {
+	// 		console.dir(err, 'err')
+	// 	})
 
+	// router.push('/')
 	console.log('账号:', username.value)
 	console.log('密码:', password.value)
 }
@@ -82,8 +93,8 @@ onMounted(() => {})
 }
 
 .login-box {
-	width: 300px;
-	padding: 20px;
+	width: 500px;
+	padding: 40px;
 	background-color: rgba(236, 241, 245, 0.6);
 	border-radius: 5px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

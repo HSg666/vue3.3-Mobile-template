@@ -28,10 +28,16 @@ $api.request.interceptors.request.use((config: any) => {
 	// 	window.location.href = '/login'
 	// }
 
+	// 防止接口缓存
 	config.headers = {
+		'Cache-Control': 'no-cache',
+		Pragma: 'no-cache',
+		Expires: '0',
+		'If-Modified-Since': '0',
 		// Authorization: token, // 这个是自定义的请求头，还可以加 token 等
 		...headers,
 	}
+
 	return config
 })
 

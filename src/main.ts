@@ -18,5 +18,10 @@ import { createApp } from 'vue'
 import App from '@/App.vue'
 import router from './router' // 封装的路由
 import { pinia } from './store' // 封装的模块化pinia store
+import 'vant/es/toast/style'
+import { Toast } from 'vant'
 
-createApp(App).use(pinia).use(router).mount('#app')
+const app = createApp(App)
+app.use(Toast)
+
+app.use(pinia).use(router).mount('#app')
