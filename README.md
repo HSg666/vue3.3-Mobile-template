@@ -43,7 +43,7 @@ pnpm start       // 启动
 pnpm run build   // 打包
 rm -rf node_modules  // 强行删除依赖包
 ```
-准备打包上线时请看 <a href="#requestURL">新增环境变量  优化请求地址</a>，检查完配置后再执行pnpm run build 打包
+准备打包上线时请看 <a href="#globalUrl">配置全局URL环境变量</a>，检查完配置后再执行pnpm run build 打包
 
 ## 目录
 
@@ -55,14 +55,15 @@ rm -rf node_modules  // 强行删除依赖包
 - [6、封装Pinia、模块化、长缓存](#pinia)
 - [7、postcss-px-to-viewport移动端适配](#postcss-px-to-viewport)
 - [8、自动导入组件](#unplugin-vue-components)
-- [9、WindiCSS样式库](#windicss)
-- [10、初始化全局CSS和防止页面文本被用户选中](#resetcss)
-- [11、字体与字体图标](#iconfont)
-- [12、性能优化](#xnyh)
-- [13、代码规范](pretter)
-- [14、配置兼容性](#jrx)
-- [15、已配置第三方工具库](#threeTool)
-- [16、拓展](#tuozhan)
+- [9、封装TabBar布局容器](#tabbar)
+- [10、WindiCSS样式库](#windicss)
+- [11、初始化全局CSS和防止页面文本被用户选中](#resetcss)
+- [12、字体与字体图标](#iconfont)
+- [13、性能优化](#xnyh)
+- [14、代码规范](#pretter)
+- [15、配置兼容性](#jrx)
+- [16、已配置第三方工具库](#threeTool)
+- [17、拓展](#tuozhan)
 
 ## <span id="router">1、封装Router</span>
 
@@ -141,9 +142,9 @@ UI库官网地址：https://vant-ui.github.io/vant/#/zh-CN/button
 
 ## <span id="axios">3、封装Axios</span>
 
-#### 1、新增axios并封装,还新增了自定义请求错误处理函数，请求类
+### 1、新增axios并封装,还新增了自定义请求错误处理函数，请求类
 
-#### 2、封装api列表  apiList   
+### 2、封装api列表  apiList   
 
 封装的axios配合api接口使用模板
 
@@ -283,7 +284,13 @@ import '@/assets/scss/index.scss'
 
 所用的组件都自动保存在项目根目录的 components.d.ts 中。
 
-## <span id="windicss">9、Windicss库的用法</span>
+## <span id="tabbar">9、封装TabBar布局容器</span>
+
+1、路径：src/layout/index.vue
+
+2、作用：页面整体的布局结构，如需增加/减少tabbar数量，增加时记得给新tabbar配置正确的路由，才能正常跳转。
+
+## <span id="windicss">10、Windicss库的用法</span>
 
 库已经配置好了，你直接使用即可。
 
@@ -293,11 +300,11 @@ import '@/assets/scss/index.scss'
 
 官方文档：https://windicss.org/
 
-## 10、<span id="resetcss">初始化全局CSS和防止页面文本被用户选中</span>
+## 11、<span id="resetcss">初始化全局CSS和防止页面文本被用户选中</span>
 
 src/assets/scss/reset.scss  和 src/assets/scss/index.scss 
 
-## <span id="iconfont">11、字体和字体图标</span>
+## <span id="iconfont">12、字体和字体图标</span>
 
 项目使用的字体和字体图标是阿里巴巴免费可商用的iconfont，无需担心是否侵权的问题。
 
@@ -311,9 +318,9 @@ src/assets/scss/reset.scss  和 src/assets/scss/index.scss
 
 配置文章链接：https://www.iconfont.cn/fonts/detail?spm=a313x.fonts_index.i1.d9df05512.7ccd3a81uTg3IB&cnid=nsKKStjV4gdI
 
-## 12、<span id="xnyh">性能优化</span>
+## 13、<span id="xnyh">性能优化</span>
 
-#### 1、<span id="keep-alive">需要keep-alive长缓存的组件在此配置</span>
+### 1、<span id="keep-alive">需要keep-alive长缓存的组件在此配置</span>
 
 1、路由设置keepAlive属性
 
@@ -343,23 +350,23 @@ const routerStrArr = ['home']
 
 注意：最多缓存10个，缓存太多影响性能。
 
-#### 2、为每次打包的文件后缀添加打包时的时间戳，防止打包上线页面缓存的问题
+### 2、为每次打包的文件后缀添加打包时的时间戳，防止打包上线页面缓存的问题
 
 vite.config.ts  timeStamp
 
-#### 3、为index.html增加防盗链，解决图片403
+### 3、为index.html增加防盗链，解决图片403
 
-#### 4、PC端时自动生成iframe框架嵌套项目并网页自动居中</span>
+### 4、PC端时自动生成iframe框架嵌套项目并网页自动居中</span>
 
 具体代码逻辑在 src/App.vue  onMounted中
 
-#### 5、vite.config.ts已配置诸多优化，具体请自行查看。
+### 5、vite.config.ts已配置诸多优化，具体请自行查看。
 
-## 13、<span id="pretter">代码规范</span>
+## 14、<span id="pretter">代码规范</span>
 
-#### 1、prettier + eslint 配置了代码规范插件
+### 1、prettier + eslint 配置了代码规范插件
 
-#### 2、<span id="husky">husky + lint-staged  git提交规范</span>
+### 2、<span id="husky">husky + lint-staged  git提交规范</span>
 
 - feat：新功能（feature）
 - fix/to：修复 bug，可以是 QA 发现的 BUG，也可以是研发自己发现的 
@@ -375,17 +382,17 @@ vite.config.ts  timeStamp
 - merge：代码合并。
 - sync：同步主线或分支的 Bug。
 
-## 14、<span id="pretter">配置兼容性</span>
+## 15、<span id="jrx">配置兼容性</span>
 
-#### 1、browserslist 配置了浏览器兼容性
+### 1、browserslist 配置了浏览器兼容性
 
-#### 2、polyfill web项目兼容低版本浏览器插件
+### 2、polyfill web项目兼容低版本浏览器插件
 
 core-js 和 @vitejs/plugin-legacy
 
-## 15、<span id="threeTool">已配置第三方工具库</span>  
+## 16、<span id="threeTool">已配置第三方工具库</span>  
 
-#### 1、lodash
+### 1、lodash
 
 防抖和节流的使用方法,节流用到时再去查
 
@@ -399,23 +406,25 @@ function toLogin() {
 }
 ```
 
-#### 2、<span id="vconsole">vConsole移动端调试工具</span>
+### 2、<span id="vconsole">vConsole移动端调试工具</span>
 
 详细文章看这篇：https://blog.csdn.net/Steven_Son/article/details/135555570?spm=1001.2014.3001.5501
 
-## <span id="tuozhan">16、拓展：</span>
+## <span id="tuozhan">17、拓展：</span>
 
-#### 1、如果不知道怎么用Nginx部署前端打包后的dist,可以看这篇文章
+
+
+### 1、如果不知道怎么用Nginx部署前端打包后的dist,可以看这篇文章
 
 https://blog.csdn.net/Steven_Son/article/details/135414494?spm=1001.2014.3001.5501
 
-#### 2、如果要做JWT免登，请根据你的需求对以下几个文件进行更改
+### 2、如果要做JWT免登，请根据你的需求对以下几个文件进行更改
 
 1、src/service/webRequest.ts  设置token的地方
 2、src/service/error.ts   错误报错页
 3、src/login/index.vue   登录页，登录后可能就要保存token了
 
-#### 3、本地开发的项目到手机端演示
+### 3、本地开发的项目到手机端演示
 
 1、修改package.json配置,更改为你电脑的IP地址，同时电脑和手机要在同个网络。
 说明：连的同个WIFI、同个网线。
@@ -431,7 +440,7 @@ https://blog.csdn.net/Steven_Son/article/details/135414494?spm=1001.2014.3001.55
 
 3、pnpm testMobild 启动项目，手机访问启动后的项目链接。
 
-#### 4、解决main.ts 文件引入路径的问题
+### 4、解决main.ts 文件引入路径的问题
 
 1、如果引入路径正确，但是提示找不到文件，则删除'XX',重新引入
 
@@ -499,10 +508,7 @@ declare module '*.vue' {
 
 每次修改完都要重启项目，或者关闭项目重启VSCode、重启项目。
 
-#### 5、封装TabBar布局容器
 
-1、路径：src/layout/index.vue
-2、作用：页面整体的布局结构，如需增加/减少tabbar数量，增加时记得给新tabbar配置正确的路由，才能正常跳转。
 
 Author: Houslin
 博客：https://blog.csdn.net/Steven_Son
