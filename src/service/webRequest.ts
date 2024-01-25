@@ -3,6 +3,7 @@ import API from './requestList'
 import AxiosRequestError from './error'
 import { handleError } from './handleError'
 import { getProcessEnv } from '../global/env'
+import { showLoadingToast, closeToast } from 'vant'
 
 const $api = new API({
 	// 这个是请求的后台的服务的地址
@@ -37,12 +38,20 @@ $api.request.interceptors.request.use((config: any) => {
 		// Authorization: token, // 这个是自定义的请求头，还可以加 token 等
 		...headers,
 	}
+	if (config.loading) {
+		showLoadingToast({
+			message: '加载中...',
+			forbidClick: true,
+		})
+	}
 
 	return config
 })
 
 // 响应的拦截器
 $api.request.interceptors.response.use(undefined, async (err: AxiosRequestError) => {
+	closeToast()
+
 	err = handleError(err) // 调用我们自定义的 错误处理方法
 	if (err.isUnAuthorized) {
 		// 401未授权的情况的处理    直接去登录页

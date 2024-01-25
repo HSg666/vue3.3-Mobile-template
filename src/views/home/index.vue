@@ -1,5 +1,6 @@
 <script lang="ts" setup name="home">
 import { onMounted, reactive, toRefs, ref } from 'vue'
+import { showToast } from 'vant'
 
 interface State {
 	imgList: string[]
@@ -17,6 +18,10 @@ const { imgList, vantshow } = useShowList()
 
 const isFixed = ref(true)
 
+const handleClick = () => {
+	showToast('轻提示')
+}
+
 onMounted(() => {})
 </script>
 <template>
@@ -30,7 +35,7 @@ onMounted(() => {})
 				<div class="custom-indicator">{{ active + 1 }}/{{ total }}</div>
 			</template>
 		</van-swipe>
-		<van-button type="primary" @click="vantshow = true">主要按钮</van-button>
+		<van-button type="primary" @click="handleClick">主要按钮</van-button>
 		<van-overlay :show="vantshow" @click="vantshow = false">
 			<div class="wrapper">
 				<div class="content">

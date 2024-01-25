@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
+// 主要tabbar
 export const layoutRoutes: Array<RouteRecordRaw> = [
 	{
 		path: '/',

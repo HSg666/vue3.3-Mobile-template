@@ -3,10 +3,10 @@
 // 正式环境
 export const PROD_ENV = {
 	SERVER_URL: 'http://192.168.1.193:8090/', // 服务器地址
-	IS_DEV: 'false', // 是否为测试环境
+	IS_DEV: 'false', // 是否为开发环境
 }
 
-// 测试环境
+// 开发环境
 export const DEV_ENV = {
 	SERVER_URL: 'http://127.0.0.1:8099/',
 	IS_DEV: 'true',
