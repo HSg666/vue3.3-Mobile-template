@@ -65,7 +65,7 @@ onMounted(() => {})
 		<van-button type="primary" @click="handleClick">主要按钮</van-button>
 		<!-- disabled -->
 		<van-collapse v-model="activeNames">
-			<van-collapse-item v-for="title in introduceList" :key="title.id" :title="title.name" :name="title.id" :disabled="!title.children">
+			<van-collapse-item v-for="title in introduceList" :key="title.id" :title="title.name" :name="title.id" :is-link="title.children ? true : false">
 				<van-cell v-for="item in title.children" :key="item" :title="item" />
 			</van-collapse-item>
 		</van-collapse>
