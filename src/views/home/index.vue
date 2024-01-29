@@ -61,8 +61,6 @@ onMounted(() => {})
 <template>
 	<div class="container">
 		<van-nav-bar title="首页" :fixed="isFixed" />
-		<p>主要按钮主要按钮主要按钮主要按钮主要按钮主要按钮主要按钮主要按钮主要按钮主要按钮主要按钮主要按钮主要按钮主要按钮主要按钮主要按钮主要按钮</p>
-		<!-- disabled -->
 		<van-collapse v-model="activeNames">
 			<van-collapse-item v-for="title in introduceList" :key="title.id" :title="title.name" :name="title.id" :is-link="title.children ? true : false">
 				<van-cell v-for="item in title.children" :key="item" :title="item" />
