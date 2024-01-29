@@ -11,8 +11,11 @@
 代码管理工具推荐用：sourceTree
 
 ### 项目预览
+![](https://github.com/HSg666/learn-vite/blob/main/src/assets/images/%E9%A6%96%E9%A1%B5.png)
 
+![](https://github.com/HSg666/learn-vite/blob/main/src/assets/images/%E7%89%88%E6%9C%AC%E4%BB%8B%E7%BB%8D.png)
 
+![](https://github.com/HSg666/learn-vite/blob/main/src/assets/images/%E4%B8%AA%E4%BA%BA%E4%B8%AD%E5%BF%83.png)
 
 ### 项目结构
 
