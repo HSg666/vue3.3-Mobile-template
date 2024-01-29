@@ -1,5 +1,5 @@
 <script lang="ts" setup name="account">
-import { useStore } from '@/store'
+import { userStore } from '@/store'
 import AxiosRequestError from '@/service/error'
 import $api from '@/service/webRequest'
 import { APIs } from '@/service/apiList'
@@ -14,7 +14,8 @@ $api.get(APIs.GET_SHOPLIST_PROD)
 		console.dir(err, 'err')
 	})
 
-const userStore = useStore()
+const useUserStore = userStore()
+const { name } = useUserStore
 const debounceLogin = debounce(toLogin, 500)
 function toLogin() {
 	console.log(111)
@@ -23,7 +24,7 @@ function toLogin() {
 <template>
 	<div @click="debounceLogin">toLogin</div>
 	<h2 style="color: pink">过来啦</h2>
-	<div>{{ userStore.name }}</div>
+	<div>{{ name }}</div>
 	<router-view />
 </template>
 <style lang="scss" scoped></style>

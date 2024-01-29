@@ -17,7 +17,7 @@ const useTabBar = () => {
 				icon: 'home-o',
 			},
 			{
-				title: '分类',
+				title: '版本介绍',
 				to: {
 					name: 'category',
 				},
@@ -51,14 +51,21 @@ const routerStrArr = ['home']
 </script>
 <template>
 	<!-- 2、 include：需要长缓存的组件名称  max：最多缓存10个，缓存太多影响性能  -->
-	<router-view v-slot="{ Component }">
-		<component :is="Component" v-if="!$route.meta.keepAlive" />
-		<KeepAlive :include="routerStrArr" :max="10">
-			<component :is="Component" v-if="$route.meta.keepAlive" />
-		</KeepAlive>
-	</router-view>
+	<div class="layout-container">
+		<router-view v-slot="{ Component }">
+			<component :is="Component" v-if="!$route.meta.keepAlive" />
+			<KeepAlive :include="routerStrArr" :max="10">
+				<component :is="Component" v-if="$route.meta.keepAlive" />
+			</KeepAlive>
+		</router-view>
+	</div>
 
 	<TabBar :data="tabBar"></TabBar>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.layout-container {
+	// margin-bottom: 100px;
+	min-height: 100vh;
+}
+</style>

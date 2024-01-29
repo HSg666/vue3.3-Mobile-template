@@ -1,42 +1,64 @@
+# learn-vite
 
+基于Vue3.3 + TS + Vant4 + Vite5+ Pinia  + viewport适配 + Sass + Axios封装 + vconsole 移动端调试，搭建的H5移动端开发模板脚手架  
 
-H5移动端开发模板  Vue3.3 + TS + Vite + Vant4 + Pinia +  Sass + Router4.2 + viewport 适配 + Axios 封装
+### 环境要求：
 
-环境要求： Node:16.20.1    pnpm:8.14.0
+ Node:16.20.1    pnpm:8.14.0
 
 必须装上安装pnpm，没装的看这篇文章  https://blog.csdn.net/Steven_Son/article/details/135151622 
 
-代码管理工具：sourceTree
+代码管理工具推荐用：sourceTree
 
-项目文件夹介绍
+### 项目结构
 
 ```js
-- dist 打包后自动生成的文件夹
-- src
-- | - assets 全局静态资源(字体、字体图标、样式初始)
-- | - components 公共组件
-- | - layout 全局Tabbar配置、keep-alive可配置需长缓存的路由
-- | - hooks 存放hook函数
-- | - polyfill 解决浏览器兼容性的文件
-- | - global 配置全局URL环境变量
-- | - router 路由列表
-- | - service 请求接口相关
-- | - | - apiList.ts  接口列表
-- | - | - error.ts  	封装的接口错误提示
-- | - | - handleError.ts  处理接口请求错误
-- | - | - requestList.ts  请求函数列表
-- | - | - webRequest.ts  封装Axios请求函数
-- | - store 存储pinia
-- | - | - index.ts    统一导出整个pinia和store
-- | - | - modules.ts  store模块化
-- | - typings 存储TS类型
-- | - utils 工具库
-- | - views 组件
+learn-vite -- UI 主目录  
+├── dist 打包后自动生成的文件夹
+├── public -- 静态资源  
+├ ├── favicon.ico -- 图标  
+├── src -- 源码目录  
+├ ├── assets -- 全局静态资源
+├ ├ ├── iconfont -- 字体和字体图标
+├ ├ ├── images -- 图片存放路径
+├ ├ ├── json -- 静态json
+├ ├ └── scss -- index.scss 全局样式，reset.scss初始化样式
+├ ├── components -- 封装的组件  
+├ ├── global 配置全局URL环境变量
+├ ├── hooks -- vue3 Hooks
+├ ├── layout -- 全局Tabbar配置、keep-alive可配置需长缓存的路由
+├ ├── polyfill 解决浏览器兼容性的文件
+├ ├── router -- VUE 路由  
+├ ├ ├── index -- 路由入口  
+├ ├── service
+├ ├ ├── apiList.ts -- 接口列表
+├ ├ ├── error.ts -- 封装的接口错误提示
+├ ├ ├── handleError.ts -- 处理接口请求错误
+├ ├ ├── requestList.ts -- 请求函数列表 
+├ ├ └── webRequest.ts -- 封装Axios请求函数
+├ ├── store -- Pinia
+├ ├ ├── index -- 统一导出整个pinia和store
+├ ├ └── modules.ts  store模块化
+├ ├── typings -- 存储TS类型别名
+├ ├── utils -- 工具包  
+├ ├── views -- 业务上的 vue 页面  
+├ ├── App.vue -- 根组件  
+├ └── main.ts -- 入口 ts  
+├── components.d.ts -- 自动注册组件文件  
+├── .eslintrc.js -- ESLint 配置  
+├── .gitignore -- git 忽略  
+├── tsconfig.json -- vscode 路径引入配置
+├── index.html -- 首页  
+├── package.json -- 依赖管理  
+├── vite.config.ts -- vite5的相关配置 
+└── windi.config.ts -- WindiCSS的配置文件
 ```
 
 ## 命令
 
 ```js
+git clone https://github.com/HSg666/learn-vite.git  
+// 或 git clone git@github.com:HSg666/learn-vite.git
 cd learn-vite    // 切换
 pnpm i           // 装依赖
 pnpm start       // 启动
@@ -44,6 +66,10 @@ pnpm run build   // 打包
 rm -rf node_modules  // 强行删除依赖包
 ```
 准备打包上线时请看 <a href="#globalUrl">配置全局URL环境变量</a>，检查完配置后再执行pnpm run build 打包
+
+部署上线后如果出现页面刷新报Nginx404，请看这篇文章并对照检查你的router/index.ts中的mode模式，更改配置后再试试就OK了。
+
+https://blog.csdn.net/Steven_Son/article/details/135414494
 
 ## 目录
 
@@ -268,9 +294,131 @@ import '@/assets/scss/index.scss'
 
 ## 6、<span id="pinia">封装Pinia、模块化、长缓存</span>
 
+使用方式：
+
+1、在store/modules下创建user.ts
+
+````js
+import { defineStore, acceptHMRUpdate } from 'pinia'
+
+// 1、声明导出store名称
+export const userStore = defineStore({
+	id: 'user', // 2、声明store名称
+	state: () => ({
+		name: '很老很老的值',
+	}),
+	getters: {
+		myName: state => {
+			return `getters ${state.name}`
+		},
+	},
+	actions: {
+		changeName(name: string) {
+			this.name = name
+		},
+	},
+	
+})
+
+// 这行代码是用于支持热模块替换（HMR）的。在Pinia中，它允许接受热更新并应用到使用了userStore的地方。
+// 3、为了让当前store接收热更新为它配置一下
+if (import.meta.hot) {
+	import.meta.hot.accept(acceptHMRUpdate(userStore, import.meta.hot))
+}
+````
+
+2、导出user.ts中整个userStore给其他组件使用
+
+store/modules/index.ts
+
+```js
+export * from './user'
+```
+
+3、store在组件中的使用方式
+
+```js
+// 1、引入
+import { userStore } from '@/store' // 由于项目已配置路径别名，所以就用@/，它代表的是src
+
+// 2、实例化
+const useUserStore = userStore()
+
+// 3、如何使用userStore中的变量和函数     看下面template中的p标签就知道，解不解构2选1
+// 3.1.1  变量可用解构  例如取出name后直接使用即可
+const { name } = useUserStore
+// 3.1.2  变量不解构   需要加上useUserStore.name
+console.log(useUserStore.name)
+
+// 3.2  使用userStore中的函数
+const handleLogin = () => {
+  useUserStore.changeName('张三')
+}
+
+// 页面
+<template>
+  	  <p>{{ name }}</p>
+      <p>{{ useUserStore.name }}</p>
+</template>
+```
+
+完整代码
+
+```js
+import { userStore } from '@/store'  // 1、引入
+const useUserStore = userStore() // 2、实例化
+
+const { name } = useUserStore // 3、解构变量
+
+// 4、使用
+const handleLogin = () => {
+  useUserStore.changeName('张三')
+}
+
+<template>
+  	  <p>{{ name }}</p>
+</template>
+```
+
+
+
+4、引入的store存储的数据默认是没有响应式的，可以用 storeToRefs 将其变为响应式。
+
+```js
+// 引入
+import { storeToRefs } from "pinia";  
+
+ // 将我们实例化的useAppstore放进去然后解构，解构出的state数据即为响应式
+ const { name } = storeToRefs(useAppstore);
+```
+
+需要storeToRefs的完整代码
+
+```js
+import { userStore } from '@/store' // 引入userStore
+import { storeToRefs } from "pinia";  // 取出响应式方法
+
+const useUserStore = userStore() // 实例化
+const { name } = storeToRefs(useUserStore); // 将实例化对象的数据更改为响应式并解构出来
+
+// 使用userStore中的函数
+const handleLogin = () => {
+  useUserStore.changeName('张三')
+}
+
+// 页面
+<template>
+  	  <p>{{ name }}</p>
+</template>
+```
+
+如何证明数据是否为响应式，请看这篇文章 https://blog.csdn.net/Steven_Son/article/details/128440811
+
 封装+模块化：https://blog.csdn.net/Steven_Son/article/details/135553816?spm=1001.2014.3001.5501
 
 长缓存：https://blog.csdn.net/Steven_Son/article/details/135551314?spm=1001.2014.3001.5501
+
+Pinia官网文章：https://pinia.web3doc.top/introduction.html
 
 ## 7、<span id="postcss-px-to-viewport">自适应采用的是postcss-px-to-viewport</span>
 
@@ -392,9 +540,9 @@ core-js 和 @vitejs/plugin-legacy
 
 ## 16、<span id="threeTool">已配置第三方工具库</span>  
 
-### 1、lodash
+### 1、lodash  
 
-防抖和节流的使用方法,节流用到时再去查
+防抖和节流的使用方法,节流用到时再去查    
 
 ```js
 import { debounce,throttle } from 'lodash-es'
@@ -508,7 +656,28 @@ declare module '*.vue' {
 
 每次修改完都要重启项目，或者关闭项目重启VSCode、重启项目。
 
+### 5、使用van-nav-bar时看这里
+
+直接使用，但由于它会盖住外部包裹层，所以你使用van-nav-bar时需要给外层container添加padding-top:92px;  也就是vant-nav-bar的2倍高度（1倍是46），因为我们设计稿是750的。
+
+这样在van-nav-bar下的内容就不会被它盖住了。
+
+不需要van-nav-bar的无需加此样式。
+
+```html
+<template>
+	<container>
+		<van-nav-bar title="首页" />  	
+  </container>
+</template>
+<style scoped lang="scss">
+  .container{
+    padding-top: 92px;
+  }
+</style>
+```
 
 
-Author: Houslin
+
+Author: HaushoLin
 博客：https://blog.csdn.net/Steven_Son
