@@ -2,10 +2,6 @@
 import { onMounted } from 'vue'
 
 onMounted(() => {})
-
-const toGithub = () => {
-	window.location.href = 'https://github.com/HSg666/learn-vite'
-}
 </script>
 
 <!-- about -->
@@ -16,9 +12,18 @@ const toGithub = () => {
 		</div>
 		<div class="item author">项目作者：HaushoLin</div>
 
-		<div class="item url" @click="toGithub">
-			<p class="label">项目地址:</p>
-			<p>https://github.com/HSg666/learn-vite</p>
+		<div class="project">Github项目地址：</div>
+		<div class="item url">
+			<a href="https://github.com/HSg666/vue3.3-mobile-template">https://github.com/HSg666/vue3.3-mobile-template</a>
+		</div>
+
+		<div class="project">Gitee项目地址：</div>
+		<div class="item url">
+			<a href="https://github.com/HSg666/vue3.3-mobile-template">https://github.com/HSg666/vue3.3-mobile-template</a>
+		</div>
+		<div class="project">
+			博客地址：
+			<a href="https://blog.csdn.net/Steven_Son" class="url">https://blog.csdn.net/Steven_Son</a>
 		</div>
 	</div>
 </template>
@@ -29,8 +34,14 @@ const toGithub = () => {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+	.project {
+		width: 100%;
+		text-align: left;
+		text-indent: 1em;
+	}
 	.item {
-		margin: 30px 0;
+		width: 100%;
+		margin: 3vw 0 5vw;
 		text-align: center;
 	}
 	.author {

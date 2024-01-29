@@ -1,6 +1,6 @@
-# learn-vite
+#  **[vue3.3-Mobile-template](https://github.com/HSg666/vue3.3-Mobile-template)** 
 
-基于Vue3.3 + TS + Vant4 + Vite5+ Pinia  + viewport适配 + Sass + Axios封装 + vconsole 移动端调试，搭建的H5移动端开发模板脚手架  
+基于Vue3.3 + TS + Vant4 + Vite5 + Pinia + ViewPort适配 + Sass + Axios封装 + vconsole调试工具，搭建的H5移动端开发模板，开箱即用的。  
 
 ### 环境要求：
 
@@ -64,8 +64,8 @@ learn-vite -- UI 主目录
 ## 命令
 
 ```js
-git clone https://github.com/HSg666/learn-vite.git  
-// 或 git clone git@github.com:HSg666/learn-vite.git
+git clone https://github.com/HSg666/vue3.3-Mobile-template  
+// 或 git clone git@github.com:HSg666/vue3.3-Mobile-template
 cd learn-vite    // 切换
 pnpm i           // 装依赖
 pnpm start       // 启动
@@ -683,7 +683,11 @@ declare module '*.vue' {
   }
 </style>
 ```
+### 6、如果打开某些组件正确引入vue的api了，但还是报未找到vue文件，此时项目有缓存，关闭整个VScode重启项目即可解决。
 
+```js
+import { ref } from 'vue' // 正确引了，但提示报未找到文件
+```
 
 
 Author: HaushoLin
