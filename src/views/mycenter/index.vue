@@ -19,7 +19,7 @@ onMounted(() => {})
 
 		<div class="project">Gitee项目地址：</div>
 		<div class="item url">
-			<a href="https://gitee.com/lhs1303574731/vue3.3-Mobile-template">https://gitee.com/lhs1303574731/vue3.3-Mobile-template</a>
+			<a href="https://gitee.com/HaushoLin/vue3.3-Mobile-template">https://gitee.com/HaushoLin/vue3.3-Mobile-template</a>
 		</div>
 		<div class="project">
 			博客地址：
