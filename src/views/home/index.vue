@@ -60,12 +60,13 @@ onMounted(() => {})
 </script>
 <template>
 	<div class="container">
-		<van-nav-bar title="首页" :fixed="isFixed" />
+		<!-- <van-nav-bar title="首页" :fixed="isFixed" /> -->
 		<van-collapse v-model="activeNames">
 			<van-collapse-item v-for="title in introduceList" :key="title.id" :title="title.name" :name="title.id" :is-link="title.children ? true : false">
 				<van-cell v-for="item in title.children" :key="item" :title="item" />
 			</van-collapse-item>
 		</van-collapse>
+
 		<!-- <van-button type="primary" @click="handleClick">主要按钮</van-button> -->
 	</div>
 </template>
@@ -81,6 +82,7 @@ onMounted(() => {})
 
 .container {
 	width: 100%;
+	min-height: 100vh;
 	padding-top: 92px;
 	overflow-x: hidden;
 	overflow-y: scroll;

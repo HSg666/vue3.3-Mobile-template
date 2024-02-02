@@ -689,7 +689,130 @@ declare module '*.vue' {
 ```js
 import { ref } from 'vue' // 正确引了，但提示报未找到文件
 ```
+### 7、souceTree 如果提交代码失败请检查当前node 版本是否为16
+```js
+node -v    如果不是则切换为16
+nvm use 16   切换后souceTree重新提交代码
+```
+### 8、如何深层次修改vant-ui组件样式
 
+```js
+::v-deep(.van-search) {
+	background-color: #f5f5f5;
+}
+```
+### 9、如何定义SCSS全局公共样式并使用
+1、在src/assets/scss/variables.scss中定义
+```js
+// 主题色
+$theme-color: #af1d36;
+```
+2、记得在vite.config.ts配置一下这个文件路径，否则页面用了找不着
+vite.config.ts
+```js
+export default defineConfig({
+	css:{
+		// css预处理器
+		preprocessorOptions: {
+			scss: {
+				// 引入 variables.scss 这样就可以在全局中使用 variables.scss中预定义的变量了
+				// 给导入的路径最后加上 ;
+				additionalData: '@import "@/assets/scss/variables.scss";',
+			},
+		},
+	}
+})
+```
+3、页面如何使用
+views/home/index.vue
+```html
+<template>
+	<p>测试</p>
+</template>
+
+<style lang="scss" scoped>
+	p{
+		color: $theme-color
+	}
+</style>
+```
+### 10、assets/images的图片可以用变量形式引入并使用
+1、以home.vue为例
+
+项目中已为assets配置路径别名，所以无需../
+```js
+import prodImg from '@/assets/images/icons/商品1.png'
+
+<template>
+	<img :src="prodImg" />
+</teplate>
+```
+### 11、页面css布局编写规范
+1、如果页面顶部有nav-bar导航栏，则用这种布局
+```css
+.container {
+	width: 100%;
+	min-height: 100vh;
+	padding-top: 92px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+```
+2、不需要导航栏的页面用这种，少了一个padding-top,因为有导航栏时页面数据会被它盖住，所以需要下移。
+```css
+.container {
+	width: 100%;
+	min-height: 100vh;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+```
+### 12、如果底部tabbar的图标不满意，要换成自定义，则需这样写
+```html
+<script setup lang="ts">
+import { ref } from 'vue'
+// 1、引入静态图
+import HOME_ONE from '@/assets/images/icons/1首页.png'
+import HOME_TWO from '@/assets/images/icons/2首页.png'
+
+// 2、做点数据结构，用于页面v-for遍历用
+const tabBar = [
+	{
+		title: '首页',
+		to: {
+			name: 'home',
+		},
+		icon: HOME_ONE, // 默认
+		icon_acitve: HOME_TWO, // 选中
+	},
+	{
+		title: '商品',
+		to: {
+			name: 'productList',
+		},
+		icon: PRODUCT_ONE,
+		icon_acitve: PRODUCT_TWO,
+	},
+	...
+]
+const active = ref(0) // 默认选中第一个
+
+</script>
+
+<template>
+	<van-tabbar v-model="active" fixed route active-color="#af1d36" inactive-color="#707070" safe-area-inset-bottom>
+		<van-tabbar-item v-for="(item, index) in tabBar" :key="index" :to="item.to">
+			<span>{{ item.title }}</span>
+			<template #icon="props">
+				<img :src="props.active ? item.icon_acitve : item.icon" />
+			</template>
+		</van-tabbar-item>
+	</van-tabbar>
+</template>
+
+
+```
 
 Author: HaushoLin
+
 博客：https://blog.csdn.net/Steven_Son

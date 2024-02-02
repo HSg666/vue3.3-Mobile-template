@@ -5,30 +5,45 @@ export default {
 </script>
 <script setup lang="ts">
 import { ref } from 'vue'
-interface tabTo {
-	name: string
-}
 
-interface tabProps {
-	data: [
-		{
-			title: string
-			to: tabTo
-			icon: string
-			badge?: number | undefined
+const tabBar = [
+	{
+		title: '精选',
+		to: {
+			name: 'home',
 		},
-	]
-}
-
-const props = defineProps<tabProps>()
-// console.log(props.data, "props.data");
+		icon: 'home-o',
+	},
+	{
+		title: '版本介绍',
+		to: {
+			name: 'category',
+		},
+		icon: 'apps-o',
+	},
+	{
+		title: '购物车',
+		to: {
+			name: 'shopcart',
+		},
+		icon: 'shopping-cart-o',
+		badge: 0,
+	},
+	{
+		title: '我的',
+		to: {
+			name: 'mycenter',
+		},
+		icon: 'contact-o',
+	},
+]
 
 const active = ref(0)
 </script>
 
 <template>
-	<van-tabbar v-model="active" fixed route>
-		<van-tabbar-item v-for="(item, index) in props.data" :key="index" :to="item.to" :name="item.to.name" :icon="item.icon" :badge="item.badge">{{ item.title }}</van-tabbar-item>
+	<van-tabbar v-model="active" fixed route safe-area-inset-bottom>
+		<van-tabbar-item v-for="(item, index) in tabBar" :key="index" :to="item.to" :name="item.to.name" :icon="item.icon" :badge="item.badge">{{ item.title }}</van-tabbar-item>
 	</van-tabbar>
 </template>
 
