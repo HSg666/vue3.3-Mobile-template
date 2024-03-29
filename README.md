@@ -225,7 +225,7 @@ isServerError: false, // 是否为服务器出错
 isUnAuthorized: false, // 是否已通过鉴权，也就是常见的登录状态
 
 (4)、如果要添加或使用自定义请求函数，请在src/service/requestList.ts中添加，类似于已经存在的上传图片接口
-## 3、自定义封装请求函数
+### 3、自定义封装请求函数
 1、先到service/apiList.ts中添加接口
 ```js
 export const APIs = {
