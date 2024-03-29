@@ -51,6 +51,23 @@ class API {
 			},
 		})
 	}
+
+	// 获取单个id数据
+	async getOnlyId(key, id) {
+		return this.get(`${key}?id=${id}`)
+	}
+	// 获取商品列表 以及搜索
+	async getShopListFN(key, data) {
+		// 写法1 传统
+		// return this.get(`${key}?id=${data.id}&name=${data.name}&price=${data.price}&sale=${data.sale}&xp=${data.xp}`)
+		// 写法2 解构
+		const { id, name, price, sale, xp } = data
+		return this.get(`${key}?id=${id}&name=${name}&price=${price}&sale=${sale}&xp=${xp}`)
+	}
+	// 传递单个id数据
+	async postOnlyId(key, data) {
+		return this.post(`${key}?goodsId=${data.goodsId}`)
+	}
 }
 
 export default API

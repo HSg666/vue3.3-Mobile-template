@@ -225,7 +225,60 @@ isServerError: false, // 是否为服务器出错
 isUnAuthorized: false, // 是否已通过鉴权，也就是常见的登录状态
 
 (4)、如果要添加或使用自定义请求函数，请在src/service/requestList.ts中添加，类似于已经存在的上传图片接口
+## 3、自定义封装请求函数
+1、先到service/apiList.ts中添加接口
+```js
+export const APIs = {
+	GET_PRDDETAIL: '/m/CcbLifeGoods/getyById', // 获取商品详情
+}
+```
+2、在service/requestList.ts中添加，用模板字符串自行拼接
+<span style="color:red">注：由于get如果传多个参数需要自己拼接的，不像post直接传整个json对象给后端，所以你打算用get传多个参数，请看一下案例(采用模板字符串和&拼接方式)，见getOnlyId和getShopListFN；想用post单独传参也是ok的，见postOnlyId。</span>
+```js
+import { APIs } from './apiList'
+class API {
+	// 获取单个id数据   
+	async getOnlyId(key, id) {
+		return this.get(`${key}?id=${id}`)
+	}
+	// 获取商品列表 以及搜索  
+	// key：接口名称  data: 所有参数组成的对象
+	async getShopListFN(key, data) {
+		// 写法1 传统
+	  	// return this.get(`${key}?id=${data.id}&name=${data.name}&price=${data.price}&sale=${data.sale}&xp=${data.xp}`)
+		// 写法2 解构
+		const { id,name,price,sale,xp } = data
+	  	// return this.get(`${key}?id=${id}&name=${name}&price=${price}&sale=${sale}&xp=${xp}`)
+	}
+	// 传递单个id数据
+	async postOnlyId(key, data) {
+		return this.post(`${key}?goodsId=${data.goodsId}`)
+	}
 
+}
+```
+3、页面使用
+<span style="color:orange">注:自定义的方法都是绑定在$api this上的，所以直接在它身上取就可以</soan>
+```js
+import $api from '@/service/webRequest' // 封装好的axios请求函数
+import { APIs } from '@/service/apiList' // 接口列表
+
+const getData = async () => {
+	// 单一传
+	let id = route.query.id
+	const { data: res } = await $api.getOnlyId(APIs.GET_PRDDETAIL, id)
+
+	// 多个参数组装为一个对象传入
+	let params = {
+		id:1,
+		name:'HSg',
+		price:99,
+		sale:3,
+		xp:11
+	}
+	const { data: res } = await $api.getShopListFN(APIs.GET_PRDDETAIL, params)
+}
+```
 ## <span id="globalUrl">4、配置全局URL环境变量</span>
 开发和正式环境地址在 global/env.ts 中配置
 ```js
