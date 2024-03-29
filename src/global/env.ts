@@ -1,5 +1,9 @@
 // 全局环境变量  请求的服务器地址在此配置
 
+// 静态图片前缀
+export const fileServerAddress = 'http://192.168.1.159:8085' // 客户端地址(某后端接口)
+// export const fileServerAddress = 'http://192.168.1.159:8085' // 客户端地址(线上)
+
 // 正式环境
 export const PROD_ENV = {
 	SERVER_URL: 'http://192.168.1.193:8090/', // 服务器地址
@@ -32,7 +36,7 @@ export const DEV_ENV = {
 
 let isDEV = true // 默认为开发环境，但会根据当前环境动态更换开发或生产
 if (typeof window !== 'undefined') {
-	isDEV = process.env.NODE_ENV === 'development' || ['http://192.168.1.193:8099'].includes(window.location.host)
+	isDEV = process.env.NODE_ENV === 'development' || [fileServerAddress].includes(window.location.host)
 }
 
 export type EnvKey = keyof typeof PROD_ENV

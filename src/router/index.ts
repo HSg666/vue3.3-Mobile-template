@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 // 主要tabbar
 export const layoutRoutes: Array<RouteRecordRaw> = [
@@ -64,7 +64,7 @@ export const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
 	scrollBehavior: () => ({ left: 0, top: 0 }),
-	history: createWebHistory(),
+	history: createWebHashHistory(),
 	routes,
 })
 

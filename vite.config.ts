@@ -13,6 +13,8 @@ import { VantResolver } from 'unplugin-vue-components/resolvers'
 import postcsspxtoviewport from 'postcss-px-to-viewport'
 
 export default defineConfig({
+	// 如果是线上则用 ./ 否则本地用 / ,如果不配置这个上线后静态资源会访问不到
+	base: process.env.NODE_ENV === 'production' ? './' : '/',
 	server: {
 		host: '0.0.0.0',
 		port: 5173,
@@ -90,9 +92,6 @@ export default defineConfig({
 		emptyOutDir: true, // 每次构建时清除dist目录
 		rollupOptions: {
 			output: {
-				manualChunks: {
-					pinia: ['pinia'],
-				},
 				entryFileNames: `js/[name]-[hash].${timeStamp}.js`, // 入口文件输出的文件夹名称
 				chunkFileNames: `js/[name]-[hash].${timeStamp}.js`, //chunk包输出的文件夹名称
 				assetFileNames: `[ext]/[name]-[hash].${timeStamp}.[ext]`, //静态文件输出的文件夹名称

@@ -229,6 +229,10 @@ isUnAuthorized: false, // 是否已通过鉴权，也就是常见的登录状态
 ## <span id="globalUrl">4、配置全局URL环境变量</span>
 开发和正式环境地址在 global/env.ts 中配置
 ```js
+// 静态图片前缀
+export const fileServerAddress = 'http://192.168.1.179:8081/' // 客户端地址(某后端接口地址)
+// const fileServerAddress = 'http://192.168.1.179:8081/' ; // 客户端地址(线上)
+
 // 正式环境
 export const PROD_ENV = {
 	SERVER_URL: 'http://192.168.1.193:8090/', // 服务器地址
@@ -261,9 +265,22 @@ export const DEV_ENV = {
 
 let isDEV = true // 默认为开发环境，但会根据当前环境动态更换开发或生产
 if (typeof window !== 'undefined') {
-	isDEV = process.env.NODE_ENV === 'development' || ['http://192.168.1.193:8099'].includes(window.location.host)
+	isDEV = process.env.NODE_ENV === 'development' || [fileServerAddress].includes(window.location.host)
 }
 ```
+
+静态图片前缀页面使用案例
+```js
+home.vue
+// 图片前缀
+import { fileServerAddress } from '@/global/env'
+// 1、标签中
+<img :src="fileServerAddress+'图片'">
+
+// 2、函数中
+直接使用fileServerAddress
+```
+
 
 
 
