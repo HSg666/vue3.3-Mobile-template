@@ -9,4 +9,12 @@ module.exports = {
   proseWrap: "preserve",
   htmlWhitespaceSensitivity: "ignore",
   trailingComma: "all",
+  overrides: [
+		{
+			files: '*.scss',
+			options: {
+				parser: 'scss',
+			},
+		},
+	],
 };

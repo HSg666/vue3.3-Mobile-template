@@ -8,7 +8,6 @@ tsconfig.json
 *.png
 *.jpg
 *.jpeg
-*.scss
 *.gif
 *.webp
 *.ttf
