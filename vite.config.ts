@@ -11,7 +11,6 @@ const timeStamp = new Date().getTime() // 为每次打包的文件新增当前�
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 import postcsspxtoviewport from 'postcss-px-to-viewport'
-import viteCompression from 'vite-plugin-compression'
 
 export default defineConfig({
 	// 如果是线上则用 ./ 否则本地用 / ,如果不配置这个上线后静态资源会访问不到
@@ -72,13 +71,6 @@ export default defineConfig({
 		Components({
 			dts: true,
 			resolvers: [VantResolver()],
-		}),
-		viteCompression({
-			verbose: true,
-			disable: false,
-			threshold: 1024,
-			algorithm: 'gzip',
-			deleteOriginFile: true,
 		}),
 	],
 	// 兼容web低版本浏览器插件
