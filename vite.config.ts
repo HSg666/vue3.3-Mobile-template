@@ -11,6 +11,7 @@ const timeStamp = new Date().getTime() // 为每次打包的文件新增当前�
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 import postcsspxtoviewport from 'postcss-px-to-viewport'
+import viteImagemin from 'vite-plugin-imagemin' // 压缩png和jpg
 
 export default defineConfig({
 	// 如果是线上则用 ./ 否则本地用 / ,如果不配置这个上线后静态资源会访问不到
@@ -65,6 +66,34 @@ export default defineConfig({
 		// 兼容web低版本浏览器插件 1
 		legacy({
 			targets: ['cover 99.5%'],
+		}),
+		// 压缩png和jpg
+		viteImagemin({
+			gifsicle: {
+				optimizationLevel: 7,
+				interlaced: false,
+			},
+			optipng: {
+				optimizationLevel: 7,
+			},
+			mozjpeg: {
+				quality: 20,
+			},
+			pngquant: {
+				quality: [0.8, 0.9],
+				speed: 4,
+			},
+			svgo: {
+				plugins: [
+					{
+						name: 'removeViewBox',
+					},
+					{
+						name: 'removeEmptyAttrs',
+						active: false,
+					},
+				],
+			},
 		}),
 
 		// 全局自动注册components中的组件，需要使用到其中的组件无需import导入，直接使用即可
