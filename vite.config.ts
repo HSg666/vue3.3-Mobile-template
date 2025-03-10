@@ -70,18 +70,22 @@ export default defineConfig({
 		// 压缩png和jpg
 		viteImagemin({
 			gifsicle: {
-				optimizationLevel: 7,
+				// 降低优化级别
+				optimizationLevel: 3,
 				interlaced: false,
 			},
 			optipng: {
-				optimizationLevel: 7,
+				// 降低优化级别
+				optimizationLevel: 3,
 			},
 			mozjpeg: {
-				quality: 20,
+				// 提高图片质量
+				quality: 80,
 			},
 			pngquant: {
-				quality: [0.8, 0.9],
-				speed: 4,
+				// 提高图片质量范围
+				quality: [0.9, 1],
+				speed: 3,
 			},
 			svgo: {
 				plugins: [
@@ -124,6 +128,11 @@ export default defineConfig({
 				entryFileNames: `js/[name]-[hash].${timeStamp}.js`, // 入口文件输出的文件夹名称
 				chunkFileNames: `js/[name]-[hash].${timeStamp}.js`, //chunk包输出的文件夹名称
 				assetFileNames: `[ext]/[name]-[hash].${timeStamp}.[ext]`, //静态文件输出的文件夹名称
+				manualChunks(id) {
+					if (id.includes('node_modules')) {
+						return 'vendor'
+					}
+				},
 			},
 		},
 		chunkSizeWarningLimit: 1300,
