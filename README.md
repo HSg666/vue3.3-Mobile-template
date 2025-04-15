@@ -4,7 +4,7 @@
 
 ### 环境要求：
 
- Node:16.20.1    pnpm:8.14.0
+ Node:18.20.2    pnpm:10.5.2
 
 必须装上安装pnpm，没装的看这篇文章  https://blog.csdn.net/Steven_Son/article/details/135151622 
 
@@ -90,7 +90,7 @@ https://blog.csdn.net/Steven_Son/article/details/135414494
 - [7、postcss-px-to-viewport移动端适配](#postcss-px-to-viewport)
 - [8、自动导入组件](#unplugin-vue-components)
 - [9、封装TabBar布局容器](#tabbar)
-- [10、WindiCSS样式库](#windicss)
+- [10、tailwindcss样式库](#tailwindcss)
 - [11、初始化全局CSS和防止页面文本被用户选中](#resetcss)
 - [12、字体与字体图标](#iconfont)
 - [13、性能优化](#xnyh)
@@ -516,21 +516,29 @@ Pinia官网文章：https://pinia.web3doc.top/introduction.html
 
 2、作用：页面整体的布局结构，如需增加/减少tabbar数量，增加时记得给新tabbar配置正确的路由，才能正常跳转。
 
-## <span id="windicss">10、Windicss库的用法</span>
+## <span id="bg-white">10、tailwindcss库的用法</span>
 
 库已经配置好了，你直接使用即可。
+
+
 
 ```html
 <p class="text-orange-500">橙色</p>
 ```
+## <span id="bg-white">11、fontawesome-free字体图标库</span>
 
-官方文档：https://windicss.org/
+免费可商用的，这个库主要是配合tailwindcss的。因为用莫高生成的静态代码用的icon就是这个，为了方便直接使用莫高的生成静态代码到页面演示完美展示，所以直接帮你引入了。 你就无需再次引入。
+```html
+<i class="fas fa-wallet"></i>
+```
 
-## 11、<span id="resetcss">初始化全局CSS和防止页面文本被用户选中</span>
+
+
+## 12、<span id="resetcss">初始化全局CSS和防止页面文本被用户选中</span>
 
 src/assets/scss/reset.scss  和 src/assets/scss/index.scss 
 
-## <span id="iconfont">12、字体和字体图标</span>
+## <span id="iconfont">13、字体和字体图标</span>
 
 项目使用的字体和字体图标是阿里巴巴免费可商用的iconfont，无需担心是否侵权的问题。
 
@@ -544,7 +552,7 @@ src/assets/scss/reset.scss  和 src/assets/scss/index.scss
 
 配置文章链接：https://www.iconfont.cn/fonts/detail?spm=a313x.fonts_index.i1.d9df05512.7ccd3a81uTg3IB&cnid=nsKKStjV4gdI
 
-## 13、<span id="xnyh">性能优化</span>
+## 14、<span id="xnyh">性能优化</span>
 
 ### 1、<span id="keep-alive">需要keep-alive长缓存的组件在此配置</span>
 
@@ -588,7 +596,7 @@ vite.config.ts  timeStamp
 
 ### 5、vite.config.ts已配置诸多优化，具体请自行查看。
 
-## 14、<span id="pretter">代码规范</span>
+## 15、<span id="pretter">代码规范</span>
 
 ### 1、prettier + eslint 配置了代码规范插件
 
@@ -608,7 +616,7 @@ vite.config.ts  timeStamp
 - merge：代码合并。
 - sync：同步主线或分支的 Bug。
 
-## 15、<span id="jrx">配置兼容性</span>
+## 16、<span id="jrx">配置兼容性</span>
 
 ### 1、browserslist 配置了浏览器兼容性
 
@@ -616,7 +624,7 @@ vite.config.ts  timeStamp
 
 core-js 和 @vitejs/plugin-legacy
 
-## 16、<span id="threeTool">已配置第三方工具库</span>  
+## 17、<span id="threeTool">已配置第三方工具库</span>  
 
 ### 1、lodash  
 
@@ -637,7 +645,7 @@ function toLogin() {
 详细文章看这篇：https://blog.csdn.net/Steven_Son/article/details/135555570?spm=1001.2014.3001.5501
 
 
-## <span id="tuozhan">17、拓展：</span>
+## <span id="tuozhan">18、拓展：</span>
 
 
 

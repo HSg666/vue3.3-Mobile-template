@@ -22,7 +22,7 @@ const introduceList = [
 	{ id: 6, name: '6、封装Pinia、模块化、长缓存' },
 	{ id: 7, name: '7、postcss-px-to-viewport移动端适配' },
 	{ id: 8, name: '8、自动导入组件' },
-	{ id: 9, name: '9、WindiCSS样式库' },
+	{ id: 9, name: '9、tailwindcss样式库' },
 	{ id: 10, name: '10、初始化全局CSS和防止页面文本被用户选中' },
 	{ id: 11, name: '11、字体与字体图标' },
 	{

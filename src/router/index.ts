@@ -2,15 +2,7 @@ import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } 
 
 // 主要tabbar
 export const layoutRoutes: Array<RouteRecordRaw> = [
-	{
-		path: '/',
-		name: 'home',
-		meta: {
-			title: 'home',
-			keepAlive: true,
-		},
-		component: () => import('@/views/home/index.vue'),
-	},
+	{ path: '/', name: 'home', meta: { title: 'home', keepAlive: true }, component: () => import('@/views/home/index.vue') },
 	{
 		path: '/category',
 		name: 'category',
@@ -20,22 +12,10 @@ export const layoutRoutes: Array<RouteRecordRaw> = [
 		},
 		component: () => import('@/views/category/index.vue'),
 	},
-	{
-		path: '/mycenter',
-		name: 'mycenter',
-		meta: {
-			title: 'mycenter',
-		},
-		component: () => import('@/views/mycenter/index.vue'),
-	},
-	{
-		path: '/shopcart',
-		name: 'shopcart',
-		meta: {
-			title: 'shopcart',
-		},
-		component: () => import('@/views/shopcart/index.vue'),
-	},
+	{ path: '/mycenter', name: 'mycenter', meta: { title: 'mycenter' }, component: () => import('@/views/mycenter/index.vue') },
+	{ path: '/shopcart', name: 'shopcart', meta: { title: 'shopcart' }, component: () => import('@/views/shopcart/index.vue') },
+	// 测试页面的组件
+	{ path: '/one', name: 'one', meta: { title: 'one' }, component: () => import('@/views/testPage/one.vue') },
 ]
 
 export const routes: Array<RouteRecordRaw> = [
@@ -47,26 +27,14 @@ export const routes: Array<RouteRecordRaw> = [
 		children: layoutRoutes,
 	},
 
-	{
-		path: '/login',
-		name: 'login',
-		component: () => import('@/views/login/index.vue'),
-	},
-	{
-		path: '/account',
-		name: 'account',
-		component: () => import('@/views/account.vue'),
-	},
+	{ path: '/login', name: 'login', component: () => import('@/views/login/index.vue') },
+	{ path: '/account', name: 'account', component: () => import('@/views/account.vue') },
 
 	// 替代vue2中的'*'通配符路径
 	{ path: '/:pathMatch(.*)*', redirect: '/' },
 ]
 
-const router = createRouter({
-	scrollBehavior: () => ({ left: 0, top: 0 }),
-	history: createWebHashHistory(),
-	routes,
-})
+const router = createRouter({ scrollBehavior: () => ({ left: 0, top: 0 }), history: createWebHashHistory(), routes })
 
 router.beforeEach((_to, _from, next) => {
 	next()

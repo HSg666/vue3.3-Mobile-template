@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import autoprefixer from 'autoprefixer' // css自动添加兼容性前缀
-import WindiCss from 'vite-plugin-windicss' // css便捷样式库
 import path from 'path'
 import legacy from '@vitejs/plugin-legacy' // 兼容web低版本浏览器插件
 import { getProcessEnv } from './src/global/env' // 获取项目请求地址
@@ -12,6 +11,7 @@ import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from 'unplugin-vue-components/resolvers'
 import postcsspxtoviewport from 'postcss-px-to-viewport'
 import viteImagemin from 'vite-plugin-imagemin' // 压缩png和jpg
+import tailwindcss from 'tailwindcss' // 引入 tailwindcss
 
 export default defineConfig({
 	// 如果是线上则用 ./ 否则本地用 / ,如果不配置这个上线后静态资源会访问不到
@@ -30,10 +30,9 @@ export default defineConfig({
 	css: {
 		postcss: {
 			plugins: [
+				tailwindcss, // 添加 tailwindcss 插件
 				// 浏览器兼容性
-				autoprefixer({
-					overrideBrowserslist: ['Android 4.1', 'iOS 7.1', 'Chrome > 31', 'ff > 31', 'ie >= 8'],
-				}),
+				autoprefixer({ overrideBrowserslist: ['Android 4.1', 'iOS 7.1', 'Chrome > 31', 'ff > 31', 'ie >= 8'] }),
 				postcsspxtoviewport({
 					unitToConvert: 'px', // 要转化的单位
 					viewportWidth: 750, // UI设计稿的宽度，如果你的设计稿是375就改成375
@@ -56,17 +55,14 @@ export default defineConfig({
 			scss: {
 				// 引入 variables.scss 这样就可以在全局中使用 variables.scss中预定义的变量了
 				// 给导入的路径最后加上 ;
-				additionalData: '@import "@/assets/scss/variables.scss";',
+				// additionalData: '@import "@/assets/scss/variables.scss";',
 			},
 		},
 	},
 	plugins: [
 		vue(),
-		WindiCss(),
 		// 兼容web低版本浏览器插件 1
-		legacy({
-			targets: ['cover 99.5%'],
-		}),
+		legacy({ targets: ['cover 99.5%'] }),
 		// 压缩png和jpg
 		viteImagemin({
 			gifsicle: {
@@ -87,29 +83,14 @@ export default defineConfig({
 				quality: [0.9, 1],
 				speed: 3,
 			},
-			svgo: {
-				plugins: [
-					{
-						name: 'removeViewBox',
-					},
-					{
-						name: 'removeEmptyAttrs',
-						active: false,
-					},
-				],
-			},
+			svgo: { plugins: [{ name: 'removeViewBox' }, { name: 'removeEmptyAttrs', active: false }] },
 		}),
 
 		// 全局自动注册components中的组件，需要使用到其中的组件无需import导入，直接使用即可
-		Components({
-			dts: true,
-			resolvers: [VantResolver()],
-		}),
+		Components({ dts: true, resolvers: [VantResolver()] }),
 	],
 	// 兼容web低版本浏览器插件
-	optimizeDeps: {
-		include: ['core-js', 'vant', 'axios', 'pinia', 'vue', 'vue-router'],
-	},
+	optimizeDeps: { include: ['core-js', 'vant', 'axios', 'pinia', 'vue', 'vue-router'] },
 	//路径别名 alias
 	resolve: {
 		alias: {

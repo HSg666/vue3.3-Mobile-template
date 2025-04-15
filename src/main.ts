@@ -1,4 +1,3 @@
-import 'virtual:windi.css' // 引入便捷css库
 import '@/polyfill/polyfill' // 安装web兼容低版本浏览器插件
 
 // 引入全局样式
@@ -10,6 +9,10 @@ import '@/assets/iconfont/iconfont.js'
 
 // 引入阿里巴巴普惠体 2.0字体
 import '@/assets/iconfont/font/font.css'
+
+import 'tailwindcss/tailwind.css' // 引入 Tailwind CSS 样式
+// 引入 Font Awesome 的 CSS 文件
+import '@fortawesome/fontawesome-free/css/all.css'
 
 // 这是移动端控制台调试工具，需要调试就打开,不用就注释
 // import '@/utils/vconsole.ts'
