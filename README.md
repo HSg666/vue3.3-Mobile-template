@@ -1,6 +1,6 @@
 #  **[vue3.3-Mobile-template](https://github.com/HSg666/vue3.3-Mobile-template)** 
 
-基于Vue3.3 + TS + Vant4 + Vite5 + Pinia + ViewPort适配 + Sass + Axios封装 + vconsole调试工具，搭建的H5移动端开发模板，开箱即用的。  
+基于Vue3.3 + TS + Vant4 + Vite5 + Pinia + tailwindcss + ViewPort适配 + Sass + Axios封装 + vconsole调试工具，搭建的H5移动端开发模板，开箱即用的。  
 
 ### 环境要求：
 
@@ -56,6 +56,7 @@ learn-vite -- UI 主目录
 ├── .eslintrc.js -- ESLint 配置  
 ├── .gitignore -- git 忽略  
 ├── tsconfig.json -- vscode 路径引入配置
+├── tailwind.config.js -- tailwindcss 配置文件
 ├── index.html -- 首页  
 ├── package.json -- 依赖管理  
 ├── vite.config.ts -- vite5的相关配置 
