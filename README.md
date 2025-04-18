@@ -68,7 +68,6 @@ learn-vite -- UI 主目录
 ```js
 git clone https://github.com/HSg666/vue3.3-Mobile-template  
 // 或 git clone git@github.com:HSg666/vue3.3-Mobile-template
-cd learn-vite    // 切换
 pnpm i           // 装依赖
 pnpm start       // 启动
 pnpm run build   // 打包
