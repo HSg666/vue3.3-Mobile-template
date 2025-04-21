@@ -55,7 +55,8 @@ export default defineConfig({
 			scss: {
 				// 引入 variables.scss 这样就可以在全局中使用 variables.scss中预定义的变量了
 				// 给导入的路径最后加上 ;
-				// additionalData: '@import "@/assets/scss/variables.scss";',
+				additionalData: '@use "@/assets/scss/variables.scss" as *;',
+				api: 'modern-compiler', // or "modern"  modern-compiler  最新的sass编译方式
 			},
 		},
 	},

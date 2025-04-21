@@ -361,7 +361,7 @@ export default defineConfig({
       "@/assets/*": ["src/assets/*"],
     }
 ```
-3、配置好页面使用
+3、配置好全局使用
 例如main.ts引入
 ```js
 // 引入全局样式
@@ -796,7 +796,8 @@ export default defineConfig({
 			scss: {
 				// 引入 variables.scss 这样就可以在全局中使用 variables.scss中预定义的变量了
 				// 给导入的路径最后加上 ;
-				additionalData: '@import "@/assets/scss/variables.scss";',
+				additionalData: '@use "@/assets/scss/variables.scss" as *;',
+				api: 'modern-compiler', // or "modern"  modern-compiler  最新的sass编译方式
 			},
 		},
 	}
@@ -815,6 +816,8 @@ views/home/index.vue
 	}
 </style>
 ```
+
+
 ### 10、assets/images的图片可以用变量形式引入并使用
 1、以home.vue为例
 
@@ -891,6 +894,8 @@ const active = ref(0) // 默认选中第一个
 
 
 ```
+### 13、引入sass文件记得用@use XX * as *;  否则找不到文件
+因为sass 2.0版本以后，@import被移除，改为@use，所以需要用@use XX * as *;  否则找不到文件或报错。
 
 Author: HaushoLin
 

@@ -1,7 +1,6 @@
+@use '@/assets/scss/reset.scss' as *;
 @use '@/assets/scss/variables.scss' as *;
-@use './reset.scss' as *;
-html {
-}
+
 :root {
 	font-family: '思源黑体 ExtraLight-subset' !important;
 	color: black;
