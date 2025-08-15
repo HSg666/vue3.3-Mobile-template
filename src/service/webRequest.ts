@@ -4,6 +4,7 @@ import AxiosRequestError from './error'
 import { handleError } from './handleError'
 import { getProcessEnv } from '../global/env'
 import { showLoadingToast, closeToast } from 'vant'
+import { useRouter } from 'vue-router'
 
 const $api = new API({
 	// 这个是请求的后台的服务的地址
@@ -49,18 +50,26 @@ $api.request.interceptors.request.use((config: any) => {
 })
 
 // 响应的拦截器
-$api.request.interceptors.response.use(undefined, async (err: AxiosRequestError) => {
-	closeToast()
+$api.request.interceptors.response.use(
+	response => {
+		const router = useRouter()
+		// 如果用户没有登录或者token已失效，那么跳转到登录页。 同时清空当前已失效的免登token
+		if (response.data.code === 401) {
+			// window.localStorage.removeItem('XXXX_token')
+			// router.push('login')
+			// return Promise.reject(new Error('未授权，请重新登录'))
+		}
 
-	err = handleError(err) // 调用我们自定义的 错误处理方法
-	if (err.isUnAuthorized) {
-		// 401未授权的情况的处理    直接去登录页
-		// window.location.href = '/login'
-	}
-	// 还可以自定义其他的情况的处理
+		return response
+	},
+	async (err: AxiosRequestError) => {
+		closeToast()
 
-	return Promise.reject(err)
-})
+		err = handleError(err) // 调用我们自定义的 错误处理方法
+
+		return Promise.reject(err)
+	},
+)
 
 // 在 page 页面就可以直接调用这个 $api 请求接口
 export default $api

@@ -10,7 +10,7 @@ const routerStrArr = ['home']
 <template>
 	<!-- 2、 include：需要长缓存的组件名称  max：最多缓存10个，缓存太多影响性能  -->
 	<div class="layout-container">
-		<router-view v-slot="{ Component }">
+		<router-view v-slot="{ Component = null }">
 			<component :is="Component" v-if="!$route.meta.keepAlive" />
 			<KeepAlive :include="routerStrArr" :max="10">
 				<component :is="Component" v-if="$route.meta.keepAlive" />

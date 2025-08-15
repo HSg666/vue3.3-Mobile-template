@@ -22,26 +22,29 @@ const introduceList = [
 	{ id: 6, name: '6、封装Pinia、模块化、长缓存' },
 	{ id: 7, name: '7、postcss-px-to-viewport移动端适配' },
 	{ id: 8, name: '8、自动导入组件' },
-	{ id: 9, name: '9、tailwindcss样式库' },
-	{ id: 10, name: '10、初始化全局CSS和防止页面文本被用户选中' },
-	{ id: 11, name: '11、字体与字体图标' },
+	{ id: 9, name: '9、封装TabBar布局容器' },
+	{ id: 10, name: '10、tailwindcss样式库' },
+	{ id: 11, name: '11、fontawesome-free字体图标库' },
+	{ id: 12, name: '12、初始化全局CSS和防止页面文本被用户选中' },
+	{ id: 13, name: '13、字体与字体图标' },
 	{
-		id: 12,
-		name: '12、性能优化',
+		id: 14,
+		name: '14、性能优化',
 		children: [
 			'1、需要keep-alive长缓存的组件在此配置',
 			'2、为每次打包的文件后缀添加打包时的时间戳，防止打包上线页面缓存的问题',
 			'3、为index.html增加防盗链，解决图片403',
 			'4、PC端时自动生成iframe框架嵌套项目并网页自动居中',
 			'5、vite.config.ts已配置诸多优化，具体请自行查看。',
+			'6、index.html 新增了清缓存的<meta>配置，防止网页静态资源缓存的问题。',
 		],
 	},
-	{ id: 13, name: '13、代码规范', children: ['1、prettier + eslint 配置了代码规范插件', '2、husky + lint-staged git提交规范'] },
-	{ id: 14, name: '14、配置兼容性', children: ['1、browserslist 配置了浏览器兼容性', '2、polyfill web项目兼容低版本浏览器插件'] },
-	{ id: 15, name: '15、已配置第三方工具库', children: ['1、lodash', '2、vConsole移动端调试工具'] },
+	{ id: 15, name: '15、代码规范', children: ['1、prettier + eslint 配置了代码规范插件', '2、husky + lint-staged git提交规范'] },
+	{ id: 16, name: '16、配置兼容性', children: ['1、browserslist 配置了浏览器兼容性', '2、polyfill web项目兼容低版本浏览器插件'] },
+	{ id: 17, name: '17、已配置第三方工具库', children: ['1、lodash', '2、vConsole移动端调试工具'] },
 	{
-		id: 16,
-		name: '16、拓展',
+		id: 18,
+		name: '18、拓展',
 		children: [
 			'1、如果不知道怎么用Nginx部署前端打包后的dist,可以看这篇文章',
 			'2、如果要做JWT免登，请根据你的需求对以下几个文件进行更改',
@@ -82,8 +85,6 @@ onMounted(() => {})
 
 .container {
 	width: 100%;
-	min-height: 100vh;
-	padding-top: 92px;
 	overflow-x: hidden;
 	overflow-y: scroll;
 }

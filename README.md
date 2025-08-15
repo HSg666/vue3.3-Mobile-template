@@ -91,13 +91,14 @@ https://blog.csdn.net/Steven_Son/article/details/135414494
 - [8、自动导入组件](#unplugin-vue-components)
 - [9、封装TabBar布局容器](#tabbar)
 - [10、tailwindcss样式库](#tailwindcss)
-- [11、初始化全局CSS和防止页面文本被用户选中](#resetcss)
-- [12、字体与字体图标](#iconfont)
-- [13、性能优化](#xnyh)
-- [14、代码规范](#pretter)
-- [15、配置兼容性](#jrx)
-- [16、已配置第三方工具库](#threeTool)
-- [17、拓展](#tuozhan)
+- [11、fontawesome-free字体图标库](#fontawesome-free)
+- [12、初始化全局CSS和防止页面文本被用户选中](#resetcss)
+- [13、字体与字体图标](#iconfont)
+- [14、性能优化](#xnyh)
+- [15、代码规范](#pretter)
+- [16、配置兼容性](#jrx)
+- [17、已配置第三方工具库](#threeTool)
+- [18、拓展](#tuozhan)
 
 ## <span id="router">1、封装Router</span>
 
@@ -175,8 +176,36 @@ const handleClick = () => {
 UI库官网地址：https://vant-ui.github.io/vant/#/zh-CN/button
 
 ## <span id="axios">3、封装Axios</span>
+文件路径:/src/service
 
-### 1、新增axios并封装,还新增了自定义请求错误处理函数，请求类
+### 1、新增axios并封装,还新增了自定义请求错误处理函数，请求类。
+
+这是二次封装的axios响应拦截器，如果要做全局接口状态码判断就打开下面代码，接口返回401时就自动跳转到登录页，同时清空已有但已失效的token，没有失效的token也是清理，不会报错的，程序执行正常的。
+
+```js
+// 路径：/src/service/webRequest.ts
+// 响应的拦截器
+$api.request.interceptors.response.use(
+	response => {
+		const router = useRouter()
+		// 如果用户没有登录或者token已失效，那么跳转到登录页。 同时清空当前已失效的免登token
+		if (response.data.code === 401) {
+			// window.localStorage.removeItem('XXXX_token')
+			// router.push('login')
+			// return Promise.reject(new Error('未授权，请重新登录'))
+		}
+
+		return response
+	},
+	async (err: AxiosRequestError) => {
+		closeToast()
+
+		err = handleError(err) // 调用我们自定义的 错误处理方法
+
+		return Promise.reject(err)
+	},
+)
+```
 
 ### 2、封装api列表  apiList   
 
@@ -184,8 +213,10 @@ UI库官网地址：https://vant-ui.github.io/vant/#/zh-CN/button
 
 (1)、先把接口添加进接口列表
 ```js
+// 路径：/src/service/requestList.ts
 export const APIs = {
 	GET_SHOPLIST: '/h5/getShopList', // 获取商品列表
+	POST_EDITADDRESS: '/h5/postEditAddress' // 编辑地址
 }
 ```
 (2)、页面使用
@@ -197,23 +228,51 @@ import { APIs } from '@/service/apiList' // 接口列表
 
 // 二选一即可
 
-// async await 写法
+// async await 写法    我一般用这种写法,原生promise太繁琐
+// ---- get请求方式
 const getShop = async () => {
 	try {
 		const res = await $api.getShopList()
-		console.dir(res, 'res')
+		if(res.code == 200){
+			console.log(res,'res')
+		}else{
+			showToast(res.msg)
+		}
 	} catch (error: AxiosRequestError) {
 		console.dir(error, 'error')
 	}
 }
 
-// 原生Primise  .then  .catch
+// ---- post请求方式
+const EditAddress = async () => {
+	let params = {
+		id: 1,
+		name: '张三',
+		phone: '13888888888',
+		address: '北京市海淀区',
+	}
+	try {
+		const res = await $api.post(APIs.POST_EDITADDRESS, params)
+		if(res.code == 200){
+			console.log(res,'res')
+		}else{
+			showToast(res.msg)
+		}
+	} catch (error: AxiosRequestError) {
+		console.dir(error, 'error')
+	}
+}
+
+// 原生Primise  .then  .catch  ---- get请求方式
 const params = { user:'', password:'' }  // 传参将需要传的值放入即可，跟vue2一样 
 $api.get(APIs.GET_SHOPLIST, params)
 	.then(() => {})
 	.catch((err: AxiosRequestError) => {
 		console.dir(err, 'err')
 })
+
+// 原生Primise  .then  .catch  ---- post请求方式
+
 
 ```
 (3)、用console.dir可以捕获到详细的错误信息，还能看到我们封装的错误处理函数
@@ -250,10 +309,7 @@ class API {
 		const { id,name,price,sale,xp } = data
 	  	// return this.get(`${key}?id=${id}&name=${name}&price=${price}&sale=${sale}&xp=${xp}`)
 	}
-	// 传递单个id数据
-	async postOnlyId(key, data) {
-		return this.post(`${key}?goodsId=${data.goodsId}`)
-	}
+	
 
 }
 ```
@@ -282,39 +338,23 @@ const getData = async () => {
 ## <span id="globalUrl">4、配置全局URL环境变量</span>
 开发和正式环境地址在 global/env.ts 中配置
 ```js
-// 静态图片前缀
+// 静态图片前缀  
 export const fileServerAddress = 'http://192.168.1.179:8081/' // 客户端地址(某后端接口地址)
-// const fileServerAddress = 'http://192.168.1.179:8081/' ; // 客户端地址(线上)
+// const fileServerAddress = 'http://192.168.1.179:8081/' ; // 客户端地址(线上生产环境地址)
 
 // 正式环境
 export const PROD_ENV = {
-	SERVER_URL: 'http://192.168.1.193:8090/', // 服务器地址
+	SERVER_URL: 'http://192.168.1.193:8090/', // 线上生产环境地址
 	IS_DEV: 'false', // 是否为开发环境
 }
 
-// 开发环境
+// 开发环境   (一般本地服务器地址跟图片静态资源都是一样的，所以这里直接取静态资源的地址就行)
 export const DEV_ENV = {
-	SERVER_URL: 'http://192.168.1.193:8099/',
+	SERVER_URL: fileServerAddress,
 	IS_DEV: 'true',
 }
 
-/* 	
-	isDEV：true为生产环境，false为开发环境
-	假设开发环境的域名是 http://127.0.0.1:8099/api 或 https://xxx-test.com
-	提示：
-	本地如果要将请求地址切换为生产服务器，则将isDEV设置为false，注释掉判断开发环境的代码。代码如下
-	const isDEV = false
-	// if (typeof window !== 'undefined') {
-	// isDEV = process.env.NODE_ENV === 'development' || ['http://192.168.1.193:8099'].includes(window.location.host)
-	// }
 
-	准备打包上线，将代码改回来。（开发环境也是这个代码）代码如下   
-	let isDEV = true // 默认为开发环境
-	if (typeof window !== 'undefined') {
-		isDEV = process.env.NODE_ENV === 'development' || ['http://192.168.1.193:8099'].includes(window.location.host)
-	}
-
-*/
 
 let isDEV = true // 默认为开发环境，但会根据当前环境动态更换开发或生产
 if (typeof window !== 'undefined') {
@@ -514,9 +554,10 @@ Pinia官网文章：https://pinia.web3doc.top/introduction.html
 
 1、路径：src/layout/index.vue
 
-2、作用：页面整体的布局结构，如需增加/减少tabbar数量，增加时记得给新tabbar配置正确的路由，才能正常跳转。
+2、作用：页面整体的布局结构，如需增加/减少tabbar数量，增加时记得给二次封装的Tabbar组件配置正确的路由，才能正常跳转。
+路径: src/components/Tabbar.vue
 
-## <span id="bg-white">10、tailwindcss库的用法</span>
+## <span id="tailwindcss">10、tailwindcss库的用法</span>
 
 库已经配置好了，你直接使用即可。
 
@@ -525,7 +566,7 @@ Pinia官网文章：https://pinia.web3doc.top/introduction.html
 ```html
 <p class="text-orange-500">橙色</p>
 ```
-## <span id="bg-white">11、fontawesome-free字体图标库</span>
+## <span id="fontawesome-free">11、fontawesome-free字体图标库</span>
 
 免费可商用的，这个库主要是配合tailwindcss的。因为用莫高生成的静态代码用的icon就是这个，为了方便直接使用莫高的生成静态代码到页面演示完美展示，所以直接帮你引入了。 你就无需再次引入。
 ```html
@@ -595,6 +636,8 @@ vite.config.ts  timeStamp
 具体代码逻辑在 src/App.vue  onMounted中
 
 ### 5、vite.config.ts已配置诸多优化，具体请自行查看。
+
+### 6、index.html 新增了清缓存的<meta>配置，防止网页静态资源缓存的问题。
 
 ## 15、<span id="pretter">代码规范</span>
 
@@ -829,27 +872,8 @@ import prodImg from '@/assets/images/icons/商品1.png'
 	<img :src="prodImg" />
 </teplate>
 ```
-### 11、页面css布局编写规范
-1、如果页面顶部有nav-bar导航栏，则用这种布局
-```css
-.container {
-	width: 100%;
-	min-height: 100vh;
-	padding-top: 92px;
-	overflow-x: hidden;
-	overflow-y: scroll;
-}
-```
-2、不需要导航栏的页面用这种，少了一个padding-top,因为有导航栏时页面数据会被它盖住，所以需要下移。
-```css
-.container {
-	width: 100%;
-	min-height: 100vh;
-	overflow-x: hidden;
-	overflow-y: scroll;
-}
-```
-### 12、如果底部tabbar的图标不满意，要换成自定义，则需这样写
+
+### 11、如果底部tabbar的图标不满意，要换成自定义，则需这样写
 ```html
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -894,7 +918,7 @@ const active = ref(0) // 默认选中第一个
 
 
 ```
-### 13、引入sass文件记得用@use XX * as *;  否则找不到文件
+### 12、引入sass文件记得用@use XX * as *;  否则找不到文件
 因为sass 2.0版本以后，@import被移除，改为@use，所以需要用@use XX * as *;  否则找不到文件或报错。
 
 Author: HaushoLin

@@ -2,37 +2,19 @@
 
 // 静态图片前缀
 export const fileServerAddress = 'http://192.168.1.159:8085' // 客户端地址(某后端接口)
-// export const fileServerAddress = 'http://192.168.1.159:8085' // 客户端地址(线上)
+// export const fileServerAddress = 'http://192.168.1.159:8085' // 客户端地址(线上生产环境地址)
 
 // 正式环境
 export const PROD_ENV = {
-	SERVER_URL: 'http://192.168.1.193:8090/', // 服务器地址
+	SERVER_URL: 'http://192.168.1.193:8090/', // 线上生产环境地址
 	IS_DEV: 'false', // 是否为开发环境
 }
 
-// 开发环境
+// 开发环境 (一般本地服务器地址跟图片静态资源都是一样的，所以这里直接取静态资源的地址就行)
 export const DEV_ENV = {
-	SERVER_URL: 'http://127.0.0.1:8099/',
+	SERVER_URL: fileServerAddress,
 	IS_DEV: 'true',
 }
-
-/* 	
-	isDEV：true为生产环境，false为开发环境
-	假设开发环境的域名是 http://127.0.0.1:8099/api 或 https://xxx-test.com
-	提示：
-	本地如果要将请求地址切换为生产服务器，则将isDEV设置为false，注释掉判断开发环境的代码。代码如下
-	const isDEV = false
-	// if (typeof window !== 'undefined') {
-	// isDEV = process.env.NODE_ENV === 'development' || ['http://192.168.1.193:8099'].includes(window.location.host)
-	// }
-
-	准备打包上线，将代码改回来。（开发环境也是这个代码）代码如下   
-	let isDEV = true // 默认为开发环境
-	if (typeof window !== 'undefined') {
-		isDEV = process.env.NODE_ENV === 'development' || ['http://192.168.1.193:8099'].includes(window.location.host)
-	}
-
-*/
 
 let isDEV = true // 默认为开发环境，但会根据当前环境动态更换开发或生产
 if (typeof window !== 'undefined') {

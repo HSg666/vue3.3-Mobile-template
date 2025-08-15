@@ -16,6 +16,8 @@ export const layoutRoutes: Array<RouteRecordRaw> = [
 	{ path: '/shopcart', name: 'shopcart', meta: { title: 'shopcart' }, component: () => import('@/views/shopcart/index.vue') },
 	// 测试页面的组件
 	{ path: '/one', name: 'one', meta: { title: 'one' }, component: () => import('@/views/testPage/one.vue') },
+	{ path: '/two', name: 'two', meta: { title: 'two' }, component: () => import('@/views/testPage/two.vue') },
+	{ path: '/three', name: 'three', meta: { title: 'three' }, component: () => import('@/views/testPage/three.vue') },
 ]
 
 export const routes: Array<RouteRecordRaw> = [
