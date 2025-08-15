@@ -11,12 +11,13 @@
 代码管理工具推荐用：sourceTree
 
 ### 项目预览
-![](https://i-blog.csdnimg.cn/direct/ba4edfcbcf8945a79694760cfd52b390.png#pic_center)
+<img src="https://i-blog.csdnimg.cn/direct/ba4edfcbcf8945a79694760cfd52b390.png" style=" width: 70%;">
 
 
-![](https://img-blog.csdnimg.cn/direct/58786e2f1f1c4ff3b57adfa64ece87d1.png)
+<img src="https://img-blog.csdnimg.cn/direct/58786e2f1f1c4ff3b57adfa64ece87d1.png" style=" width: 70%;">
 
-![](https://img-blog.csdnimg.cn/direct/2462980ba4fa44c1ac591aede2895971.png)
+<img src="https://img-blog.csdnimg.cn/direct/2462980ba4fa44c1ac591aede2895971.png" style=" width: 70%;">
+
 
 ### 项目结构
 
